@@ -44,7 +44,7 @@ extension should probably be installed (it includes some other extensions):
 
 - [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
 
-Then just hi `F5` to run the app.
+Then just hit `F5` to run the app.
 
 ## Data and EF Core Migrations
 
