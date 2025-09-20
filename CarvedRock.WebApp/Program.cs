@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using CarvedRock.WebApp;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CarvedRock.Core;
+using Microsoft.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,8 @@ builder.Services.AddAuthentication(options =>
     };
     options.SaveTokens = true;
 });
+
+builder.Services.AddTransient<IClaimsTransformation, AdminClaimsTransformation>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddRazorPages();

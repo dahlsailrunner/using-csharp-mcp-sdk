@@ -1,9 +1,11 @@
 using CarvedRock.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CarvedRock.WebApp.Pages.Admin;
 
+[Authorize(Roles = "admin")]
 public class CreateModel(IProductService productService) : PageModel
 {
     public IActionResult OnGet()
