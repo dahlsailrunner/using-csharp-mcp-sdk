@@ -8,4 +8,6 @@ public interface ICarvedRockRepository
     Task<Product?> GetProductByIdAsync(int id);        
     Task<bool> IsProductNameUniqueAsync(string name);
     Task<Product> CreateProductAsync(Product product);
+    Task<Product> UpdateProductAsync(Product product);
+    Task DeleteProductAsync(int id);
 }

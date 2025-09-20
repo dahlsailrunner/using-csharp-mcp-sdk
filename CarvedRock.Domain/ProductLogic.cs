@@ -27,4 +27,22 @@ public class ProductLogic(ILogger<ProductLogic> logger, ICarvedRockRepository re
         var createdProduct = await repo.CreateProductAsync(productToCreate);
         return productMapper.ProductToProductModel(createdProduct);
     }
+    
+    public async Task<ProductModel> UpdateProductAsync(int id, NewProductModel updatedProduct)
+    {
+        logger.LogInformation("Updating product in logic for ID {id}", id);
+        
+        var productMapper = new ProductMapper();
+        var productToUpdate = productMapper.NewProductModelToProduct(updatedProduct);
+        productToUpdate.Id = id;
+        
+        var updatedProductEntity = await repo.UpdateProductAsync(productToUpdate);
+        return productMapper.ProductToProductModel(updatedProductEntity);
+    }
+    
+    public async Task DeleteProductAsync(int id)
+    {
+        logger.LogInformation("Deleting product in logic for ID {id}", id);
+        await repo.DeleteProductAsync(id);
+    }
 }

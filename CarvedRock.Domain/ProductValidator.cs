@@ -22,8 +22,8 @@ public class NewProductValidator : AbstractValidator<NewProductModel>
         RuleFor(p => p.Name)
             .NotEmpty().WithMessage("{PropertyName} is required.")
             .NotNull().WithMessage("{PropertyName} is required.")
-            .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.")
-            .MustAsync(NameIsUnique).WithMessage("A product with the same name already exists.");
+            .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters.");
+            //.MustAsync(NameIsUnique).WithMessage("A product with the same name already exists.");
 
         RuleFor(p => p.Description)
             .NotEmpty().WithMessage("{PropertyName} is required.")
@@ -51,8 +51,8 @@ public class NewProductValidator : AbstractValidator<NewProductModel>
         return priceToValidate >= range.Min && priceToValidate <= range.Max;
     }
 
-    private async Task<bool> NameIsUnique(string name, CancellationToken token)
-    {
-        return await _repo.IsProductNameUniqueAsync(name);
-    }
+    //private async Task<bool> NameIsUnique(string name, CancellationToken token)
+    //{
+    //    return await _repo.IsProductNameUniqueAsync(name);
+    //}
 }

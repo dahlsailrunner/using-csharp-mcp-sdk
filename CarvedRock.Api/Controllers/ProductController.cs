@@ -52,4 +52,49 @@ public partial class ProductController(ILogger<ProductController> logger, IProdu
         var uri = Request.Path.Value + $"/{createdProduct.Id}";
         return Created(uri, createdProduct);
     }
+    
+    [HttpPut("{id:int}")]
+    [Authorize(Roles = "admin")]
+    [SwaggerOperation("Updates a single product.")]
+    [ProducesResponseType<ProductModel>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateProduct(int id, [FromBody] NewProductModel updatedProduct)
+    {
+        try
+        {
+            var validationResult = await validator.ValidateAsync(updatedProduct);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.CreateValidationProblemDetails(HttpContext));
+            }
+
+            var result = await productLogic.UpdateProductAsync(id, updatedProduct);
+            return Ok(result);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            logger.LogWarning(ex, "Product not found for update: {id}", id);
+            return NotFound();
+        }
+    }
+    
+    [HttpDelete("{id:int}")]
+    [Authorize(Roles = "admin")]
+    [SwaggerOperation("Deletes a single product.")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+        try
+        {
+            await productLogic.DeleteProductAsync(id);
+            return NoContent();
+        }
+        catch (KeyNotFoundException ex)
+        {
+            logger.LogWarning(ex, "Product not found for deletion: {id}", id);
+            return NotFound();
+        }
+    }
 }

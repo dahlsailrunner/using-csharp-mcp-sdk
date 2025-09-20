@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 
-namespace CarvedRock.WebApp;
+namespace CarvedRock.Core;
 
 public class AdminClaimsTransformation : IClaimsTransformation
 {

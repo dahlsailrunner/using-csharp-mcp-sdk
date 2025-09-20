@@ -1,14 +1,15 @@
+using CarvedRock.Api;
+using CarvedRock.Core;
 using CarvedRock.Data;
 using CarvedRock.Domain;
-using Microsoft.AspNetCore.Diagnostics;
-using System.Diagnostics;
 using FluentValidation;
-//using CarvedRock.Core;
-//using CarvedRock.Api;
-//using System.IdentityModel.Tokens.Jwt;
-//using Microsoft.Extensions.Options;
-//using Microsoft.IdentityModel.Tokens;
-//using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults(); 
@@ -29,20 +30,22 @@ builder.Services.AddProblemDetails(opts => // built-in problem details support
     }
 );
 
-//var authority = builder.Configuration.GetValue<string>("Auth:Authority");
-//JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
-//builder.Services.AddAuthentication("Bearer")
-//    .AddJwtBearer("Bearer", options =>
-//    {
-//        options.Authority = authority;
-//        options.TokenValidationParameters = new TokenValidationParameters
-//        {
-//            NameClaimType = "email",
-//            RoleClaimType = "role",
-//            ValidateAudience = false
-//        };
-//    });
-//builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerOptions>();
+var authority = builder.Configuration.GetValue<string>("Auth:Authority");
+JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.Authority = authority;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            NameClaimType = "email",
+            //RoleClaimType = "role",
+            ValidateAudience = false
+        };
+    });
+builder.Services.AddTransient<IClaimsTransformation, AdminClaimsTransformation>();
+
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, SwaggerOptions>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -59,15 +62,15 @@ app.MapDefaultEndpoints();
 
 app.UseExceptionHandler();
 
-//if (app.Environment.IsDevelopment())
-//{
-SetupDevelopment(app);
-//}
+if (app.Environment.IsDevelopment())
+{
+    SetupDevelopment(app);
+}
 
-//app.UseAuthentication();
-//app.UseAuthorization();
-//app.UseMiddleware<UserScopeMiddleware>();
-app.MapControllers();//.RequireAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseMiddleware<UserScopeMiddleware>();
+app.MapControllers().RequireAuthorization();
 
 app.Run();
 
@@ -81,10 +84,10 @@ static void SetupDevelopment(WebApplication app)
     }
 
     app.UseSwagger();
-    app.UseSwaggerUI(); //options =>
-    //{
-    //    options.OAuthClientId("interactive.public");
-    //    options.OAuthAppName("CarvedRock API");
-    //    options.OAuthUsePkce();
-    //});
+    app.UseSwaggerUI(options =>
+    {
+        options.OAuthClientId("interactive.public");
+        options.OAuthAppName("CarvedRock API");
+        options.OAuthUsePkce();
+    });
 }
