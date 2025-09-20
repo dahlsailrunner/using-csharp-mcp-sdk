@@ -1,0 +1,352 @@
+[
+  {
+    "Name": "Alpine Trekker",
+    "Category": "boots",
+    "Price": 89.99,
+    "Description": "Waterproof hiking boots designed for alpine terrain with superior ankle support.",
+    "ImgUrl": "https://picsum.photos/id/10/800/600"
+  },
+  {
+    "Name": "Desert Walker",
+    "Category": "boots",
+    "Price": 74.99,
+    "Description": "Breathable and lightweight boots perfect for hot weather hiking and desert exploration.",
+    "ImgUrl": "https://picsum.photos/id/15/800/600"
+  },
+  {
+    "Name": "Arctic Explorer",
+    "Category": "boots",
+    "Price": 129.99,
+    "Description": "Insulated winter boots with thermal lining rated for temperatures down to -40°F.",
+    "ImgUrl": "https://picsum.photos/id/20/800/600"
+  },
+  {
+    "Name": "River Guide",
+    "Category": "boots",
+    "Price": 69.99,
+    "Description": "Quick-drying boots with excellent grip for river crossings and wet conditions.",
+    "ImgUrl": "https://picsum.photos/id/25/800/600"
+  },
+  {
+    "Name": "Mountain Summit",
+    "Category": "boots",
+    "Price": 159.99,
+    "Description": "Premium mountaineering boots with crampons compatibility for serious climbers.",
+    "ImgUrl": "https://picsum.photos/id/30/800/600"
+  },
+  {
+    "Name": "Trail Runner",
+    "Category": "boots",
+    "Price": 79.99,
+    "Description": "Lightweight trail running boots with rock protection and enhanced traction.",
+    "ImgUrl": "https://picsum.photos/id/35/800/600"
+  },
+  {
+    "Name": "Forest Pathfinder",
+    "Category": "boots",
+    "Price": 94.99,
+    "Description": "Mid-height boots designed for forest trails with snake-bite protection.",
+    "ImgUrl": "https://picsum.photos/id/40/800/600"
+  },
+  {
+    "Name": "Canyon Hiker",
+    "Category": "boots",
+    "Price": 84.99,
+    "Description": "Sturdy boots with exceptional grip for navigating steep canyon terrain.",
+    "ImgUrl": "https://picsum.photos/id/45/800/600"
+  },
+  {
+    "Name": "Wetland Wader",
+    "Category": "boots",
+    "Price": 119.99,
+    "Description": "Tall waterproof boots for wetland exploration and marshy terrain.",
+    "ImgUrl": "https://picsum.photos/id/50/800/600"
+  },
+  {
+    "Name": "Urban Hiker",
+    "Category": "boots",
+    "Price": 59.99,
+    "Description": "Stylish yet functional boots for urban adventures and light trails.",
+    "ImgUrl": "https://picsum.photos/id/55/800/600"
+  },
+  {
+    "Name": "Alpine Backpack Pro",
+    "Category": "equip",
+    "Price": 149.99,
+    "Description": "65L backpack with integrated hydration system and adjustable suspension.",
+    "ImgUrl": "https://picsum.photos/id/60/800/600"
+  },
+  {
+    "Name": "Summit Tent",
+    "Category": "equip",
+    "Price": 299.99,
+    "Description": "Ultralight 2-person tent that withstands high winds and mountain conditions.",
+    "ImgUrl": "https://picsum.photos/id/65/800/600"
+  },
+  {
+    "Name": "Trailblazer Sleeping Bag",
+    "Category": "equip",
+    "Price": 119.99,
+    "Description": "Compact sleeping bag rated for 0°F with water-resistant down insulation.",
+    "ImgUrl": "https://picsum.photos/id/70/800/600"
+  },
+  {
+    "Name": "Wilderness Cooking Set",
+    "Category": "equip",
+    "Price": 79.99,
+    "Description": "Compact nesting cookware set including pot, pan, and utensils for backcountry cooking.",
+    "ImgUrl": "https://picsum.photos/id/75/800/600"
+  },
+  {
+    "Name": "Pathfinder Compass",
+    "Category": "equip",
+    "Price": 29.99,
+    "Description": "Military-grade compass with night illumination and sighting mirror.",
+    "ImgUrl": "https://picsum.photos/id/80/800/600"
+  },
+  {
+    "Name": "Alpine Trekking Poles",
+    "Category": "equip",
+    "Price": 89.99,
+    "Description": "Adjustable carbon fiber trekking poles with shock absorption system.",
+    "ImgUrl": "https://picsum.photos/id/85/800/600"
+  },
+  {
+    "Name": "Wilderness First Aid Kit",
+    "Category": "equip",
+    "Price": 49.99,
+    "Description": "Comprehensive first aid kit designed for remote outdoor emergencies.",
+    "ImgUrl": "https://picsum.photos/id/90/800/600"
+  },
+  {
+    "Name": "Campfire Stove",
+    "Category": "equip",
+    "Price": 59.99,
+    "Description": "Portable wood-burning stove that generates electricity to charge devices.",
+    "ImgUrl": "https://picsum.photos/id/95/800/600"
+  },
+  {
+    "Name": "Water Purifier Pro",
+    "Category": "equip",
+    "Price": 39.99,
+    "Description": "Filters up to 1,000 gallons of water, removing 99.9999% of bacteria and parasites.",
+    "ImgUrl": "https://picsum.photos/id/100/800/600"
+  },
+  {
+    "Name": "Night Navigator Headlamp",
+    "Category": "equip",
+    "Price": 45.99,
+    "Description": "Rechargeable LED headlamp with 600 lumen output and red night vision mode.",
+    "ImgUrl": "https://picsum.photos/id/105/800/600"
+  },
+  {
+    "Name": "Trail Hammock System",
+    "Category": "equip",
+    "Price": 89.99,
+    "Description": "Complete hammock system with bug net and rainfly for off-ground camping.",
+    "ImgUrl": "https://picsum.photos/id/110/800/600"
+  },
+  {
+    "Name": "Wilderness Survival Knife",
+    "Category": "equip",
+    "Price": 79.99,
+    "Description": "Full-tang survival knife with fire starter and built-in whistle.",
+    "ImgUrl": "https://picsum.photos/id/115/800/600"
+  },
+  {
+    "Name": "Bear-Safe Food Container",
+    "Category": "equip",
+    "Price": 69.99,
+    "Description": "Bear-resistant food storage container certified by the Interagency Grizzly Bear Committee.",
+    "ImgUrl": "https://picsum.photos/id/120/800/600"
+  },
+  {
+    "Name": "Explorer Solar Charger",
+    "Category": "equip",
+    "Price": 59.99,
+    "Description": "Foldable 25W solar panel with dual USB charging ports for outdoor adventures.",
+    "ImgUrl": "https://picsum.photos/id/125/800/600"
+  },
+  {
+    "Name": "Summit Climbing Harness",
+    "Category": "equip",
+    "Price": 89.99,
+    "Description": "Adjustable climbing harness with four gear loops and breathable padding.",
+    "ImgUrl": "https://picsum.photos/id/130/800/600"
+  },
+  {
+    "Name": "Trailside Coffee Press",
+    "Category": "equip",
+    "Price": 34.99,
+    "Description": "Lightweight, unbreakable French press for making perfect coffee on the trail.",
+    "ImgUrl": "https://picsum.photos/id/135/800/600"
+  },
+  {
+    "Name": "Adventure GPS",
+    "Category": "equip",
+    "Price": 249.99,
+    "Description": "Rugged handheld GPS with preloaded topographic maps and 20-hour battery life.",
+    "ImgUrl": "https://picsum.photos/id/140/800/600"
+  },
+  {
+    "Name": "All-Weather Notebook",
+    "Category": "equip",
+    "Price": 19.99,
+    "Description": "Waterproof notepad with special paper that lets you write in any weather condition.",
+    "ImgUrl": "https://picsum.photos/id/145/800/600"
+  },
+  {
+    "Name": "Rapid River Kayak",
+    "Category": "kayak",
+    "Price": 549.99,
+    "Description": "Whitewater kayak designed for rapid navigation and extreme maneuverability.",
+    "ImgUrl": "https://picsum.photos/id/150/800/600"
+  },
+  {
+    "Name": "Calm Waters Touring Kayak",
+    "Category": "kayak",
+    "Price": 699.99,
+    "Description": "14-foot touring kayak with storage compartments for multi-day adventures.",
+    "ImgUrl": "https://picsum.photos/id/155/800/600"
+  },
+  {
+    "Name": "Ocean Explorer",
+    "Category": "kayak",
+    "Price": 799.99,
+    "Description": "Sea kayak with rudder system designed for open water and coastal paddling.",
+    "ImgUrl": "https://picsum.photos/id/160/800/600"
+  },
+  {
+    "Name": "Fishing Pro Kayak",
+    "Category": "kayak",
+    "Price": 649.99,
+    "Description": "Specialized kayak with rod holders and tackle storage for serious anglers.",
+    "ImgUrl": "https://picsum.photos/id/165/800/600"
+  },
+  {
+    "Name": "Lake Cruiser",
+    "Category": "kayak",
+    "Price": 499.99,
+    "Description": "Stable recreational kayak perfect for leisurely paddling on calm lakes.",
+    "ImgUrl": "https://picsum.photos/id/170/800/600"
+  },
+  {
+    "Name": "Inflatable Explorer Kayak",
+    "Category": "kayak",
+    "Price": 349.99,
+    "Description": "Portable inflatable kayak that packs down to the size of a suitcase.",
+    "ImgUrl": "https://picsum.photos/id/175/800/600"
+  },
+  {
+    "Name": "Tandem Adventure",
+    "Category": "kayak",
+    "Price": 899.99,
+    "Description": "Two-person kayak with adjustable seating and ample storage for day trips.",
+    "ImgUrl": "https://picsum.photos/id/180/800/600"
+  },
+  {
+    "Name": "Rapids Master",
+    "Category": "kayak",
+    "Price": 749.99,
+    "Description": "Professional-grade whitewater kayak for class IV and V rapids.",
+    "ImgUrl": "https://picsum.photos/id/185/800/600"
+  },
+  {
+    "Name": "Clear Bottom Explorer",
+    "Category": "kayak",
+    "Price": 599.99,
+    "Description": "Kayak with transparent viewing panel for underwater observation.",
+    "ImgUrl": "https://picsum.photos/id/190/800/600"
+  },
+  {
+    "Name": "Foldable Kayak",
+    "Category": "kayak",
+    "Price": 899.99,
+    "Description": "Innovative folding kayak that assembles in minutes and fits in a car trunk.",
+    "ImgUrl": "https://picsum.photos/id/195/800/600"
+  },
+  {
+    "Name": "Multi-Day Expedition Boot",
+    "Category": "boots",
+    "Price": 189.99,
+    "Description": "Heavy-duty boots designed for multi-day backpacking with custom orthotic support.",
+    "ImgUrl": "https://picsum.photos/id/200/800/600"
+  },
+  {
+    "Name": "Ultralight Trail Boot",
+    "Category": "boots",
+    "Price": 99.99,
+    "Description": "Under 12oz per boot without sacrificing durability or support.",
+    "ImgUrl": "https://picsum.photos/id/205/800/600"
+  },
+  {
+    "Name": "Hammock Suspension System",
+    "Category": "equip",
+    "Price": 39.99,
+    "Description": "Tree-friendly straps and carabiners for quick hammock setup anywhere.",
+    "ImgUrl": "https://picsum.photos/id/210/800/600"
+  },
+  {
+    "Name": "Pocket Rocket Stove",
+    "Category": "equip",
+    "Price": 44.99,
+    "Description": "Ultralight camping stove that boils water in under 90 seconds.",
+    "ImgUrl": "https://picsum.photos/id/215/800/600"
+  },
+  {
+    "Name": "Backcountry Coffee Grinder",
+    "Category": "equip",
+    "Price": 29.99,
+    "Description": "Manual ceramic burr grinder for fresh coffee anywhere on the trail.",
+    "ImgUrl": "https://picsum.photos/id/220/800/600"
+  },
+  {
+    "Name": "Insulated Food Canister",
+    "Category": "equip",
+    "Price": 34.99,
+    "Description": "Keeps food hot for 5 hours or cold for 7 hours with vacuum insulation.",
+    "ImgUrl": "https://picsum.photos/id/225/800/600"
+  },
+  {
+    "Name": "Kid's Explorer Kayak",
+    "Category": "kayak",
+    "Price": 299.99,
+    "Description": "Stable and lightweight kayak designed specifically for young paddlers.",
+    "ImgUrl": "https://picsum.photos/id/230/800/600"
+  },
+  {
+    "Name": "Stand-Up Fishing Kayak",
+    "Category": "kayak",
+    "Price": 849.99,
+    "Description": "Extra-stable kayak platform allowing for stand-up fishing with pedal propulsion.",
+    "ImgUrl": "https://picsum.photos/id/235/800/600"
+  },
+  {
+    "Name": "Expedition Dry Bag",
+    "Category": "equip",
+    "Price": 79.99,
+    "Description": "100% waterproof roll-top bag with 50L capacity for kayaking and river expeditions.",
+    "ImgUrl": "https://picsum.photos/id/240/800/600"
+  },
+  {
+    "Name": "Traction Cleats",
+    "Category": "equip",
+    "Price": 39.99,
+    "Description": "Slip-on ice and snow traction devices for secure footing in winter conditions.",
+    "ImgUrl": "https://picsum.photos/id/245/800/600"
+  },
+  {
+    "Name": "Camping Pillow Deluxe",
+    "Category": "equip",
+    "Price": 29.99,
+    "Description": "Compressible memory foam camping pillow that packs to the size of a soda can.",
+    "ImgUrl": "https://picsum.photos/id/250/800/600"
+  },
+  {
+    "Name": "Trail Running Hybrid Boot",
+    "Category": "boots",
+    "Price": 109.99,
+    "Description": "The perfect blend of trail runner speed with boot ankle support.",
+    "ImgUrl": "https://picsum.photos/id/255/800/600"
+  }
+]

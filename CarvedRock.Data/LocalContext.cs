@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace CarvedRock.Data;
 
@@ -26,59 +27,22 @@ public class LocalContext(DbContextOptions<LocalContext> options) : DbContext(op
             SaveChanges();
         };
 
-        Products.Add(new Product
+
+        // Can you help me generate some data for Product?  I'd like about 50 products,
+        // and each of them should be something that might be found at an outdoor recreational
+        // equipment store.  The categories for them should be one of  "boots", "equipment", and "kayaks".
+        // Image Urls should be something from the service picsum.photos.
+        // Json format is shown in the examples in this code
+        string baseDirectory = AppContext.BaseDirectory;
+        string jsonString = File.ReadAllText(Path.Combine(baseDirectory, "SeedData.json"));
+        var products = JsonSerializer.Deserialize<List<Product>>(jsonString,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+        if (products != null)
         {
-            Name = "Trailblazer",
-            Category = "boots",
-            Price = 69.99,
-            Description = "Great support in this high-top to take you to great heights and trails.",
-            ImgUrl = "https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/img-brownboots.jpg"
-        });
-        Products.Add(new Product
-        {
-            Name = "Coastliner",
-            Category = "boots",
-            Price = 49.99,
-            Description =
-                "Easy in and out with this lightweight but rugged shoe with great ventilation to get your around shores, beaches, and boats.",
-            ImgUrl = "https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/img-greyboots.jpg"
-        });
-        Products.Add(new Product
-        {
-            Name = "Woodsman",
-            Category = "boots",
-            Price = 64.99,
-            Description =
-                "All the insulation and support you need when wandering the rugged trails of the woods and backcountry.",
-            ImgUrl = "/images/shutterstock_222721876.jpg"
-        });
-        Products.Add(new Product
-        {
-            Name = "Billy",
-            Category = "boots",
-            Price = 79.99,
-            Description =
-                "Get up and down rocky terrain like a billy-goat with these awesome high-top boots with outstanding support.",
-            ImgUrl = "/images/shutterstock_475046062.jpg"
-        });
-        Products.Add(new Product
-        {
-            Name = "Sherpa",
-            Category = "equip",
-            Price = 129.99,
-            Description =
-           "Manage and carry your gear with ease using this backpack with great lumbar support.",
-            ImgUrl = "/images/shutterstock_6170527.jpg"
-        });
-        Products.Add(new Product
-        {
-            Name = "Glide",
-            Category = "kayak",
-            Price = 399.99,
-            Description =
-                "Navigate tricky waterways easily with this great and manageable kayak.",
-            ImgUrl = "/images/shutterstock_645036007.jpg"
-        });
+            Products.AddRange(products);
+            SaveChanges();
+        }
 
         SaveChanges();
     }
