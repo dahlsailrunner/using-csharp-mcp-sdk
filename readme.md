@@ -19,15 +19,15 @@ Here are the features:
 
 - **API**
   - `GET` based on category (or "all") and by id allow anonymous requests
-  - `POST` requires authentication and an `admin` role
+  - `POST`, `PUT`, and `DELETE` require authentication and an `admin` role (available with the `bob` login, but not `alice`)
   - Validation will be done with [FluentValidation](https://docs.fluentvalidation.net/en/latest/index.html) and errors returned as a `400 Bad Request` with `ProblemDetails`
   - A `GET` with a category of something other than "all", "boots", "equip", or "kayak" will return a `500 internal server error` with `ProblemDetails`
-  - Data is refreshed to a known state as the app starts
-- Authentication provided by OIDC via a [demo instance of Duende IdentityServer](https://demo.duendesoftware.com)
+  - Data is seeded by the `SeedData.json` contents in the `Data` project
+- Authentication provided by OIDC via a [demo instance of Duende IdentityServer](https://demo.duendesoftware.com) (`bob` is an admin, `alice` is not)
 
 - **WebApp**
   - The home page and listing pages will show a subset of products
-  - There is a page at `/Admin` that will show a list of products that can be added to (edit and delete not implemented)
+  - There is a page at `/Admin` that will show a list of products that can be edited / deleted and new ones added
   - If you navigate to `/Admin` without the admin role, you should see an `AccessDenied` page
   - Any validation errors from the API should be displayed on the admin section add page
   - Can add items to cart and see a summary of the cart (shows when empty too)
