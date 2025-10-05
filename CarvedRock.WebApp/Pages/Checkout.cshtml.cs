@@ -1,4 +1,3 @@
-using CarvedRock.WebApp.Properties;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +17,12 @@ public class CheckoutModel(IProductService productService, IEmailSender emailSer
     };
 
     public string EmailAddress { get; set; } = "";
-    
+
     public List<CartItem> CartContents { get; set; } = [];
     public double CartTotal => CartContents.Sum(c => c.Total);
     public async Task OnGetAsync()
     {
-        EmailAddress = User.Claims.First(c=> c.Type == "email").Value;
+        EmailAddress = User.Claims.First(c => c.Type == "email").Value;
 
         var cookie = Request.Cookies["carvedrock-cart"];
         if (string.IsNullOrEmpty(cookie)) return;
@@ -60,19 +59,26 @@ public class CheckoutModel(IProductService productService, IEmailSender emailSer
                 product.Category, product.Price, product.Price * cartItem.Quantity);
         }).ToList();
 
-        var template = Resources.emailTemplate;
+        // updated email template with this prompt 
+        // can you create a new version of the emailTemplate.html code? 
+        // it should contain content placeholders for a table listing the products a user 
+        // has purchased along with a placeholder for some narrative content. The table 
+        // listing purchased products should be left-justified.
 
-        var emailTemplate = new StringBuilder();
-        emailTemplate.AppendLine($"<h1>Thank you for your order!</h1>");
-        emailTemplate.AppendLine("<table>");
-        emailTemplate.AppendLine("<tr><th>Product</th><th>Quantity</th><th>Price</th></tr>");
+        string basePath = AppContext.BaseDirectory;
+        string templatePath = Path.Combine(basePath, "emailTemplate.html");
+        string template = await System.IO.File.ReadAllTextAsync(templatePath);
+
+        template = template.Replace("{{NarrativeContent}}", "<h1>Thank you for your order!</h1>");
+
+        var productRows = new StringBuilder();
         foreach (var cartItem in CartContents)
         {
-            emailTemplate.AppendLine($"<tr><td>{cartItem.Name}</td><td>{cartItem.Quantity}</td><td>{cartItem.Total}</td></tr>");
+            productRows.AppendLine($"<tr><td>{cartItem.Name}</td><td>{cartItem.Quantity}</td><td>{cartItem.Total}</td></tr>");
         }
-        emailTemplate.AppendLine("</table>");
+        template = template.Replace("{{ProductRows}}", productRows.ToString());
 
-        template = template.Replace("##CONTENT##", emailTemplate.ToString());
+        template = template.Replace("{{AdditionalNotes}}", "Enjoy your new gear!");
 
         await emailService.SendEmailAsync(EmailAddress, "Your CarvedRock Order", template);
 
