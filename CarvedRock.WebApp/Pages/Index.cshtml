@@ -2,30 +2,47 @@
 @model IndexModel
 @{}
 
-<!-- HEADER -->
-<div class="jumbotron jumbotron-fluid crf-hero d-flex">
-    <div class="container d-flex flex-column justify-content-center align-items-sm-stretch align-items-md-center">
-        <h1 class="col-sm-12">GET A GRIP</h1>
-        <h2>20% OFF</h2>
-        <p class="lead">THROUGHOUT THE SEASON</p>
+<!-- HERO SECTION -->
+<div class="hero-section position-relative overflow-hidden">
+    <img src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/hero_bkgd_v1.jpg" 
+         class="img-fluid w-100" style="height: 400px; object-fit: cover;" alt="Rock climbing background">
+    <div class="position-absolute top-50 start-50 translate-middle text-center text-white">
+        <h1 class="display-1 fw-bold mb-0" style="font-size: 4rem;">GET A GRIP</h1>
+        <h2 class="display-2 fw-bold mb-0" style="color: #faa541; font-size: 4rem;">20% OFF</h2>
+        <p class="lead fw-bold ls-2 text-uppercase mt-3" style="letter-spacing: 2px;">THROUGHOUT THE SEASON</p>
     </div>
 </div>
 
-<!-- SALE BANNER -->
-<div class="container crf-cigar-banner">
-    <div class="row orange-border">
-        <a href="/CurrentPromotion">
-        <div class="crf-cigar-banner--container d-flex justify-content-center align-items-center">
-            <img alt="Brown Boots" class="order-sm-0 order-md-0" src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/img-brownboots.jpg">
-            <div class="crf-cigar-banner--text order-sm-2 order-md-1">
-                <div class="text-light">Couples retreat weekend</div>
-                <div class="text-secondary">Save an extra 20%</div>
-                <div class="text-primary">when you buy 2 pairs of boots</div>
+<!-- PROMOTIONAL BANNER -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="border border-warning border-5 p-4">
+                <a href="/CurrentPromotion" class="text-decoration-none">
+                    <div class="row align-items-center text-center">
+                        <div class="col-md-3">
+                            <img alt="Brown Boots" 
+                                 class="img-fluid" 
+                                 style="max-width: 200px;"
+                                 src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/img-brownboots.jpg">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-dark fs-4 fw-bold text-uppercase mb-1">Couples retreat weekend</div>
+                            <div class="text-secondary fs-3 fw-bold text-uppercase mb-1" style="color: #faa541 !important;">Save an extra 20%</div>
+                            <div class="text-primary fs-6 text-uppercase">when you buy 2 pairs of boots</div>
+                        </div>
+                        <div class="col-md-3">
+                            <img alt="Grey Boots" 
+                                 class="img-fluid" 
+                                 style="max-width: 200px;"
+                                 src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/img-greyboots.jpg">
+                        </div>
+                    </div>
+                </a>
             </div>
-            <img alt="Grey Boots" class="order-sm-1 order-md-2" src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/img-greyboots.jpg">
+            @* <img alt="Grey Boots" class="order-sm-1 order-md-2" src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/img-greyboots.jpg"> *@
         </div>
-        </a>        
-    </div>    
+    </div>
 </div>
 
 <!-- STORIES -->
