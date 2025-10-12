@@ -7,6 +7,7 @@
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.5.1" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.5.1" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="9.8.0" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.McpInspector" Version="9.8.0" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageVersion Include="IdentityModel" Version="7.0.0" />
     <PackageVersion Include="MailKit" Version="4.14.0" />
@@ -22,6 +23,7 @@
     <PackageVersion Include="Microsoft.Extensions.Resilience" Version="9.9.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.5.1" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageVersion Include="ModelContextProtocol.AspNetCore" Version="0.4.0-preview.2" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.13.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.13.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
@@ -31,5 +33,11 @@
     <PackageVersion Include="Riok.Mapperly" Version="4.2.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.6" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+    <PackageVersion Include="Aspire.Hosting.Testing" Version="9.5.1" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
+    <PackageVersion Include="xunit.v3" Version="3.1.0" />
   </ItemGroup>
 </Project>

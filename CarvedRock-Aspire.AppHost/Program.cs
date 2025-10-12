@@ -5,7 +5,8 @@ var carvedrockdb = builder.AddPostgres("postgres")
 
 var api = builder.AddProject<Projects.CarvedRock_Api>("api")
     .WithReference(carvedrockdb)
-    .WaitFor(carvedrockdb);
+    .WaitFor(carvedrockdb)
+    .WithHttpHealthCheck("/health");
 
 var mailpit = builder.AddMailPit("smtp");
 
@@ -13,6 +14,14 @@ builder.AddProject<Projects.CarvedRock_WebApp>("webapp")
     .WithReference(api)
     .WithReference(mailpit)
     .WaitFor(mailpit)
-    .WaitFor(api);
+    .WaitFor(api)
+    .WithHttpHealthCheck("/health");
+
+var mcp = builder.AddProject<Projects.CarvedRock_Mcp>("mcp")
+    .WithReference(api)
+    .WithHttpHealthCheck("/health");
+
+builder.AddMcpInspector("mcp-inspector")
+    .WithMcpServer(mcp, path: "");
 
 builder.Build().Run();

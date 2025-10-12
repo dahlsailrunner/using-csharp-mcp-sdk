@@ -14,6 +14,7 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.MailPit" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.McpInspector" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
@@ -21,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarvedRock.Api\CarvedRock.Api.csproj" />
+    <ProjectReference Include="..\CarvedRock.Mcp\CarvedRock.Mcp.csproj" />
     <ProjectReference Include="..\CarvedRock.WebApp\CarvedRock.WebApp.csproj" />
   </ItemGroup>
 
