@@ -6,7 +6,8 @@ builder.AddServiceDefaults();
 
 builder.Services.AddMcpServer()
     .WithHttpTransport()    
-    .WithTools<CarvedRockTools>();
+    .WithTools<CarvedRockTools>()
+    .WithTools<AdminTools>();
 
 builder.Services.AddHttpClient("CarvedRockApi", client =>
     client.BaseAddress = new("https://api"));
