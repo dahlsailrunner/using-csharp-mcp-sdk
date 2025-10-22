@@ -1,11 +1,13 @@
+using CarvedRock.Core;
 using CarvedRock.Mcp;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using ModelContextProtocol.AspNetCore.Authentication;
 using ModelContextProtocol.Authentication;
 
 const string McpServerUrl = "http://localhost:5241";
-const string OAuthServerUrl = "https://demo.duendesoftware.com";
+const string OAuthServerUrl = "https://localhost:5001";
 
 var backChannelHttpClient = new HttpClient
 {
@@ -21,7 +23,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy("DevAll", policy =>
     {
         policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-        policy.WithExposedHeaders("mcp-session-id", "last-event-id", "mcp-protocol-version");          
     });
 });
 
@@ -56,6 +57,7 @@ builder.Services.AddAuthentication(options =>
             };
         });
 builder.Services.AddAuthorization();
+builder.Services.AddTransient<IClaimsTransformation, AdminClaimsTransformation>();
 
 builder.Services.AddMcpServer()
     .WithHttpTransport()     
@@ -67,7 +69,6 @@ builder.Services.AddHttpClient("CarvedRockApi", client =>
 
 var app = builder.Build();
 
-
 if (app.Environment.IsDevelopment())
 {
     app.UseCors("DevAll");   
@@ -75,15 +76,10 @@ if (app.Environment.IsDevelopment())
 
 app.MapDefaultEndpoints();
 
-
 app.UseAuthentication();
 app.UseAuthorization();
-var mcpEndpoint = app.MapMcp();
 
-if (app.Environment.IsDevelopment())
-{
-    mcpEndpoint.RequireCors("DevAll");
-}
-//mcpEndpoint.RequireAuthorization();
+var mcpEndpoint = app.MapMcp()
+    .RequireAuthorization();  // this would require auth for **all** connections
 
 app.Run();

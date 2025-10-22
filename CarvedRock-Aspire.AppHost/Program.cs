@@ -24,4 +24,6 @@ var mcp = builder.AddProject<Projects.CarvedRock_Mcp>("mcp")
 builder.AddMcpInspector("mcp-inspector")
     .WithMcpServer(mcp, path: "");
 
+builder.AddProject<Projects.Duende_IdentityServer_Demo>("idsrv");
+
 builder.Build().Run();

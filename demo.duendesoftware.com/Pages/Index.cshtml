@@ -1,0 +1,357 @@
+@page
+@using Duende.IdentityServer
+@using Duende.IdentityServer.Demo
+@using Duende.IdentityServer.Demo.Pages
+@using Duende.IdentityServer.Models
+@model IdentityServerHost.Pages.Home.Index
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MMR39D3G"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<section class="text-center container border-bottom pb-3 mb-5">
+    <div class="row py-lg-2">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <img src="duende-logo.svg" alt="Duende Software Logo" class="img-fluid w-75"/>
+            <h1 class="fw-light">
+                <a class="text-decoration-none" href="https://duendesoftware.com/products/identityserver">Welcome to Duende IdentityServer</a>
+            </h1>
+            <p class="lead text-muted">
+                Meet Duende IdentityServer. A secure, flexible, and standards-compliant framework for OpenID Connect and OAuth 2.0. Use it as-is, or with full control of your UI, UX, business logic, and data. You decide.
+            </p>
+            <p class="display-4">
+                <span class="badge badge-primary">@($"v{Model.Version}")</span>
+            </p>
+            <div>
+                <a href="https://duendesoftware.com" class="btn btn-primary btn-lg">
+                    Get a License
+                </a>
+                <a href="https://docs.duendesoftware.com" class="btn btn-outline-primary btn-lg">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="welcome-page">
+    <h2 id="features" style="scroll-margin-top: 3em;">Features</h2>
+    <p>
+        This dashboard provides access to various IdentityServer functionalities for demo purposes only.
+    </p>
+    <div class="d-flex align-content-between flex-wrap mb-3">
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="glyphicon glyphicon-globe"></i>
+                    Discovery Document
+                </h5>
+                <p class="card-text">
+                    A discovery document
+                    where you can find metadata and links to all the endpoints, key material, etc.
+                </p>
+            </div>
+            <div class="card-footer p-0">
+                <a href="/.well-known/openid-configuration" rel="nofollow" class="btn btn-primary w-100">
+                    Go
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="glyphicon glyphicon-user"></i>
+                    Claims
+                </h5>
+                <p class="card-text">See the claims for your current session.</p>
+            </div>
+            <div class="card-footer p-0">
+                <a href="/diagnostics/" rel="nofollow" class="btn btn-primary w-100">
+                    Go
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="glyphicon glyphicon-book"></i>
+                    Grants
+                </h5>
+                <p class="card-text">Manage your stored grants.</p>
+            </div>
+            <div class="card-footer p-0">
+                <a href="/grants/" rel="nofollow" class="btn btn-primary w-100">
+                    Go
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="glyphicon glyphicon-phone"></i>
+                    CIBA
+                </h5>
+                <p class="card-text">View your pending Client-Initiated Backchannel Authentication (CIBA) login requests.</p>
+            </div>
+            <div class="card-footer p-0">
+                <a href="/ciba/all/" rel="nofollow" class="btn btn-primary w-100">
+                    Go
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="references" style="scroll-margin-top: 3em;">References</h2>
+    <p>To learn more about Duende products and how to implement them, check out our source repositories and samples.</p>
+    <div class="d-flex align-content-between flex-wrap mb-3">
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                    Duende IdentityServer Source Code
+                </h5>
+                <p class="card-text">
+                    The source code for the Duende IdentityServer and other Duende Products.
+                </p>
+            </div>
+            <div class="card-footer p-0">
+                <a href="https://github.com/duendesoftware/products" class="btn btn-primary w-100">
+                    Source Code
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                </a>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="glyphicon glyphicon-book"></i>
+                    Ready-to-use Samples
+                </h5>
+                <p class="card-text">Ready-to-use IdentityServer samples for .NET and ASP.NET Core</p>
+            </div>
+            <div class="card-footer p-0">
+                <a href="https://github.com/DuendeSoftware/Samples/" class="btn btn-primary w-100">
+                    Source Code
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                </a>
+            </div>
+        </div>
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="glyphicon glyphicon-cloud"></i>
+                    Demo Server Source Code
+                </h5>
+                <p class="card-text">The source code for this demo server.</p>
+            </div>
+            <div class="card-footer p-0">
+                <a href="https://github.com/DuendeSoftware/demo.duendesoftware.com" class="btn btn-primary w-100">
+                    Source Code
+                    <i class="glyphicon glyphicon-download-alt"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="demo-clients" style="scroll-margin-top: 3em;">Demo clients</h2>
+    <p>
+        You can use this demo server for different types of clients.
+        Use the below configurations to work with them in your own demo applications
+        or use them in the <a href="https://github.com/duendesoftware/samples">IdentityServer sample projects</a>.
+    </p>
+
+    <div id="accordion" class="mb-3">
+        @* 
+            We have a legacy login client that has been used in various demos. It's now renamed to interactive.implicit, but we need to have the
+            old entry around for some time, but don't want to show it any more. The login client and the .Where(g => g.Key != "login") can be removed after 2026.
+        *@
+        @foreach (var clients in Config.Clients.GroupBy(it => it.ClientId.Split('.', StringSplitOptions.TrimEntries).First()).Where(g => g.Key != "login"))
+        {
+            <div class="card mb-2">
+                <div id="clientid-@clients.Key" class="card-header bg-light shadow-sm border-0">
+                    <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#clientid-@clients.Key-collapse" aria-controls="clientid-@clients.Key-collapse" class="d-block position-relative text-dark text-uppercase collapsible-link py-2">@DemoServerUtilities.HumanizeClientIdPrefix(clients.Key)</a></h6>
+                </div>
+                <div id="clientid-@clients.Key-collapse" aria-labelledby="clientid-@clients.Key" data-parent="#accordion" class="collapse">
+                    <div class="card-body">
+                        @if (clients.Key == "m2m")
+                        {
+                            <p>
+                                Machine-to-machine communication can be done using <a href="https://docs.duendesoftware.com/identityserver/quickstarts/1-client-credentials">client credentials</a>.
+                            </p>
+                            <ul>
+                                <li><a href="https://docs.duendesoftware.com/identityserver/samples/basics#client-credentials">Sample using client credentials</a></li>
+                                <li><a href="https://docs.duendesoftware.com/identityserver/samples/basics#jwt-based-client-authentication">Sample using client credentials (JWT-based)</a></li>
+                                <li><a href="https://docs.duendesoftware.com/identityserver/samples/misc#dpop">Sample using DPoP</a></li>
+                            </ul>
+                        }
+                        else if (clients.Key == "interactive")
+                        {
+                            <p>
+                                Interactive clients use <a href="https://docs.duendesoftware.com/identityserver/quickstarts/2-interactive">interactive user authentication via the OpenID Connect protocol</a>.
+                            </p>
+                            <ul>
+                                <li><a href="https://docs.duendesoftware.com/identityserver/samples/basics#mvc-client-sample">Sample MVC client application</a></li>
+                                <li><a href="https://docs.duendesoftware.com/identityserver/samples/basics#mvc-client-with-jar-and-jwt-based-authentication">Sample MVC client application (JAR and JWT)</a></li>
+                            </ul>
+                        }
+
+                        <div class="row">
+                            @foreach (var client in clients)
+                            {
+                                <div class="col-12 col-lg-6">
+                                    <div class="card border-light m-2">
+                                        <div class="card-header bg-light">
+                                            <h5 class="card-title">@client.ClientId</h5>
+                                            <h6 class="card-subtitle mb-1 text-muted">@client.ClientName</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="card-text">
+                                                Client ID: <code>@client.ClientId</code><br/>
+                                                Grant type: @DemoServerUtilities.HumanizeAllowedGrantTypes(client.AllowedGrantTypes)
+                                                @if (client.RequireRequestObject)
+                                                {
+                                                    <text> - requires JAR</text>
+                                                }
+                                                <br/>
+
+                                                @if (client.RequirePkce)
+                                                {
+                                                    <text>Requires PKCE</text>
+                                                    <br/>
+                                                }
+                                                @if (client.RequireDPoP)
+                                                {
+                                                    switch (client.DPoPValidationMode)
+                                                    {
+                                                        case DPoPTokenExpirationValidationMode.Nonce:
+                                                            @:Requires the use of DPoP and nonce
+                                                            break;
+                                                        default:
+                                                            @:Requires the use of DPoP
+                                                            break;
+                                                    }
+
+                                                    <br/>
+                                                }
+
+                                                @if (client.ClientSecrets.Any())
+                                                {
+                                                    <text>Client secret:</text>
+                                                    @foreach (var clientSecret in client.ClientSecrets)
+                                                    {
+                                                        switch (clientSecret.Type)
+                                                        {
+                                                            case IdentityServerConstants.SecretTypes.SharedSecret:
+                                                                <code>secret</code>
+                                                                break;
+                                                            case IdentityServerConstants.SecretTypes.JsonWebKey:
+                                                                <a href="#sample-keys">private key JWT</a>
+                                                                break;
+                                                            default:
+                                                                @clientSecret.Type
+                                                                break;
+                                                        }
+                                                    }
+
+                                                    <br/>
+                                                }
+
+                                                Access token lifetime: @DemoServerUtilities.HumanizeLifetime(TimeSpan.FromSeconds(client.AccessTokenLifetime))<br/>
+
+                                                Allowed scopes:
+                                                @foreach (var scope in client.AllowedScopes.Where(it => !it.Contains("resource") && !it.Contains("scope") && !it.Contains("transaction")))
+                                                {
+                                                    <code>@scope</code>
+                                                }
+                                                @if (client.AllowOfflineAccess)
+                                                {
+                                                    <code>offline_access</code>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <h2 id="sample-apis" style="scroll-margin-top: 3em;">Sample APIs</h2>
+    <p>
+        This demo server provides several sample API endpoints:
+    </p>
+    <ul>
+        <li>
+            You can call a test API at <code id="api-test">https://demo.duendesoftware.com/api/test</code><button class="btn btn-sm btn-link text-dark clipboard" data-clipboard-target="#api-test"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></button>.
+            This accepts Bearer token requests.
+        </li>
+        <li>
+            You can call a test API at <code id="api-test-dpop">https://demo.duendesoftware.com/api/dpop/test</code><button class="btn btn-sm btn-link text-dark clipboard" data-clipboard-target="#api-test-dpop"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></button>.
+            This accepts DPoP token requests.
+        </li>
+    </ul>
+
+    <h2 id="sample-keys" style="scroll-margin-top: 3em;">RSA key for JWT/JAR samples</h2>
+    <p>
+        You can use the below RSA key for all clients requiring private key JWT authentication or JAR:
+    </p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-light position-absolute m-2 clipboard"
+                data-clipboard-target="#jwt-key" style="right: 0"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span> Copy</button>
+        <pre class="bg-dark text-light p-2" id="jwt-key"><code>{
+    "d":"GmiaucNIzdvsEzGjZjd43SDToy1pz-Ph-shsOUXXh-dsYNGftITGerp8bO1iryXh_zUEo8oDK3r1y4klTonQ6bLsWw4ogjLPmL3yiqsoSjJa1G2Ymh_RY_sFZLLXAcrmpbzdWIAkgkHSZTaliL6g57vA7gxvd8L4s82wgGer_JmURI0ECbaCg98JVS0Srtf9GeTRHoX4foLWKc1Vq6NHthzqRMLZe-aRBNU9IMvXNd7kCcIbHCM3GTD_8cFj135nBPP2HOgC_ZXI1txsEf-djqJj8W5vaM7ViKU28IDv1gZGH3CatoysYx6jv1XJVvb2PH8RbFKbJmeyUm3Wvo-rgQ",
+    "dp":"YNjVBTCIwZD65WCht5ve06vnBLP_Po1NtL_4lkholmPzJ5jbLYBU8f5foNp8DVJBdFQW7wcLmx85-NC5Pl1ZeyA-Ecbw4fDraa5Z4wUKlF0LT6VV79rfOF19y8kwf6MigyrDqMLcH_CRnRGg5NfDsijlZXffINGuxg6wWzhiqqE",
+    "dq":"LfMDQbvTFNngkZjKkN2CBh5_MBG6Yrmfy4kWA8IC2HQqID5FtreiY2MTAwoDcoINfh3S5CItpuq94tlB2t-VUv8wunhbngHiB5xUprwGAAnwJ3DL39D2m43i_3YP-UO1TgZQUAOh7Jrd4foatpatTvBtY3F1DrCrUKE5Kkn770M",
+    "e":"AQAB",
+    "kid":"ZzAjSnraU3bkWGnnAqLapYGpTyNfLbjbzgAPbbW2GEA",
+    "kty":"RSA",
+    "n":"wWwQFtSzeRjjerpEM5Rmqz_DsNaZ9S1Bw6UbZkDLowuuTCjBWUax0vBMMxdy6XjEEK4Oq9lKMvx9JzjmeJf1knoqSNrox3Ka0rnxXpNAz6sATvme8p9mTXyp0cX4lF4U2J54xa2_S9NF5QWvpXvBeC4GAJx7QaSw4zrUkrc6XyaAiFnLhQEwKJCwUw4NOqIuYvYp_IXhw-5Ti_icDlZS-282PcccnBeOcX7vc21pozibIdmZJKqXNsL1Ibx5Nkx1F1jLnekJAmdaACDjYRLL_6n3W4wUp19UvzB1lGtXcJKLLkqB6YDiZNu16OSiSprfmrRXvYmvD8m6Fnl5aetgKw",
+    "p":"7enorp9Pm9XSHaCvQyENcvdU99WCPbnp8vc0KnY_0g9UdX4ZDH07JwKu6DQEwfmUA1qspC-e_KFWTl3x0-I2eJRnHjLOoLrTjrVSBRhBMGEH5PvtZTTThnIY2LReH-6EhceGvcsJ_MhNDUEZLykiH1OnKhmRuvSdhi8oiETqtPE",
+    "q":"0CBLGi_kRPLqI8yfVkpBbA9zkCAshgrWWn9hsq6a7Zl2LcLaLBRUxH0q1jWnXgeJh9o5v8sYGXwhbrmuypw7kJ0uA3OgEzSsNvX5Ay3R9sNel-3Mqm8Me5OfWWvmTEBOci8RwHstdR-7b9ZT13jk-dsZI7OlV_uBja1ny9Nz9ts",
+    "qi":"pG6J4dcUDrDndMxa-ee1yG4KjZqqyCQcmPAfqklI2LmnpRIjcK78scclvpboI3JQyg6RCEKVMwAhVtQM6cBcIO3JrHgqeYDblp5wXHjto70HVW6Z8kBruNx1AH9E8LzNvSRL-JVTFzBkJuNgzKQfD0G77tQRgJ-Ri7qu3_9o1M4"
+}</code></pre>
+    </div>
+</div>
+
+@section scripts
+{
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MMR39D3G');</script>
+    <!-- End Google Tag Manager -->
+
+    <script src="~/lib/clipboardjs/dist/clipboard.min.js"></script>
+    <script>
+        $('.clipboard').tooltip({
+            trigger: 'click',
+            placement: 'top'
+        });
+
+        const clipboard = new ClipboardJS('.clipboard');
+        clipboard.on('success', function(e) {
+            $(e.trigger).tooltip('hide')
+                .attr('data-original-title', 'Copied!')
+                .tooltip('show');
+            e.clearSelection();
+
+            setTimeout(function() {
+                $(e.trigger).tooltip('hide');
+            }, 1500);
+        });
+
+    </script>
+}

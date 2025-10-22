@@ -1,0 +1,130 @@
+using Duende.AspNetCore.Authentication.JwtBearer.DPoP;
+using Duende.IdentityServer.Services;
+using Duende.IdentityServer.Validation;
+using IdentityServerHost;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.HttpsPolicy;
+
+namespace Duende.IdentityServer.Demo;
+
+internal static class HostingExtensions
+{
+    public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddRazorPages();
+        builder.Services.AddControllers();
+        builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
+        });
+
+        builder.Services.Configure<HstsOptions>(options =>
+        {
+            options.MaxAge = TimeSpan.FromDays(30);
+            options.IncludeSubDomains = true;
+        });
+
+        // cookie policy to deal with temporary browser incompatibilities
+        builder.Services.AddSameSiteCookiePolicy();
+
+        builder.Services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+
+                // options.KeyManagement.SigningAlgorithms = new[]
+                // {
+                //     new SigningAlgorithmOptions("RS256")
+                //     {
+                //         UseX509Certificate = true
+                //     }
+                // };
+                options.KeyManagement.KeyPath = "/tmp/keys";
+            })
+            .AddInMemoryApiScopes(Config.ApiScopes)
+            .AddInMemoryIdentityResources(Config.IdentityResources)
+            .AddInMemoryApiResources(Config.ApiResources)
+            .AddInMemoryClients(Config.Clients)
+            .AddTestUsers(TestUsers.Users)
+            .AddJwtBearerClientAuthentication();
+
+        builder.Services.AddAuthentication()
+            .AddLocalApi()
+            .AddJwtBearer("dpop", options =>
+            {
+                // options.Authority = "https://localhost:5001";
+                options.Authority = "https://demo.duendesoftware.com";
+
+                options.TokenValidationParameters.ValidateAudience = false;
+                options.MapInboundClaims = false;
+
+                options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+            })
+            .AddOpenIdConnect("Google", "Sign-in with Google", options =>
+            {
+                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                options.ForwardSignOut = IdentityServerConstants.DefaultCookieAuthenticationScheme;
+
+                options.Authority = "https://accounts.google.com/";
+                options.ClientId = "708778530804-rhu8gc4kged3he14tbmonhmhe7a43hlp.apps.googleusercontent.com";
+
+                options.CallbackPath = "/signin-google";
+                options.Scope.Add("email");
+            });
+
+        builder.Services.ConfigureDPoPTokensForScheme("dpop", options => { options.TokenMode = DPoPMode.DPoPOnly; });
+
+        // add CORS policy for non-IdentityServer endpoints
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("allow_all",
+                policy => { policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
+        });
+
+        // demo versions (never use in production)
+        builder.Services.AddTransient<IRedirectUriValidator, DemoRedirectValidator>();
+        builder.Services.AddTransient<ICorsPolicyService, DemoCorsPolicy>();
+
+        return builder.Build();
+    }
+
+    public static WebApplication ConfigurePipeline(this WebApplication app)
+    {
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseHsts();
+        }       
+        app.MapDefaultEndpoints();
+
+        app.UseCookiePolicy();
+        app.UseDeveloperExceptionPage();
+        app.UseForwardedHeaders();
+
+        app.UseCors("allow_all");
+
+        app.UseStaticFiles();
+
+        app.Use((context, next) =>
+        {
+            context.Response.Headers.TryAdd(
+                "X-REVISION",
+                RunningEnvironmentConfiguration.ApplicationVersion);
+
+            return next();
+        });
+
+        app.UseRouting();
+        app.UseIdentityServer();
+        app.UseAuthorization();
+
+        app.MapRazorPages()
+            .RequireAuthorization();
+        app.MapControllers();
+
+        return app;
+    }
+}

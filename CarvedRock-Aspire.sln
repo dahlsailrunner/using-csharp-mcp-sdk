@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarvedRock.IntegrationTests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Duende.IdentityServer.Demo", "demo.duendesoftware.com\Duende.IdentityServer.Demo.csproj", "{D8C378D0-A5F5-4ECF-607B-5DB1E47CC68E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{96951571-3E2E-4110-8F40-99F4590C6BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96951571-3E2E-4110-8F40-99F4590C6BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96951571-3E2E-4110-8F40-99F4590C6BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C378D0-A5F5-4ECF-607B-5DB1E47CC68E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C378D0-A5F5-4ECF-607B-5DB1E47CC68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C378D0-A5F5-4ECF-607B-5DB1E47CC68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C378D0-A5F5-4ECF-607B-5DB1E47CC68E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
