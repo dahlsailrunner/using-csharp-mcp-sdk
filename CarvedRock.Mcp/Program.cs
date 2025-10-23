@@ -58,6 +58,7 @@ builder.Services.AddAuthentication(options =>
         });
 builder.Services.AddAuthorization();
 builder.Services.AddTransient<IClaimsTransformation, AdminClaimsTransformation>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddMcpServer()
     .WithHttpTransport()     
