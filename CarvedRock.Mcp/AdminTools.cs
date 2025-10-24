@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
+using System.Text.Json;
 
 namespace CarvedRock.Mcp;
 
@@ -34,7 +36,29 @@ public class AdminTools(IHttpClientFactory httpClientFactory)
         productToUpdate.Price = newPrice;
 
         var response = await client.PutAsJsonAsync($"product/{id}", productToUpdate, cancellationToken: cancellationToken);
-        if (!response.IsSuccessStatusCode) throw new Exception($"Error updating price on product {id}; HttpResponseCode was {(int) response.StatusCode}");
+
+        if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+        {
+            var content = await response.Content.ReadAsStringAsync(cancellationToken);
+            var problem = JsonSerializer.Deserialize<ProblemDetails>(content);
+
+            var errorDetails = "";
+            if (problem != null)
+            {
+                errorDetails = problem.Detail;
+                foreach (var (key, value) in problem.Extensions)
+                {
+                    errorDetails += $"; {key}: {value}";
+                }
+            }
+
+            return new OperationResult("error", errorDetails);
+        }
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new Exception($"Error updating price on product {id}; HttpResponseCode was {(int)response.StatusCode}");
+        }
+            
 
         return new OperationResult("ok");
     }

@@ -1,5 +1,6 @@
 using CarvedRock.Core;
 using CarvedRock.Mcp;
+using Duende.AccessTokenManagement.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -30,6 +31,7 @@ builder.Services.AddAuthentication(options =>
         .AddJwtBearer(options =>
         {
             options.Authority = OAuthServerUrl;
+            //options.SaveToken = true;  // IMPORTANT!
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -62,8 +64,15 @@ builder.Services.AddMcpServer()
     //.WithTools<AdminTools>()
     .AddAuthorizationFilters();  // Add support for [Authorize] and [AllowAnonymous]
 
-builder.Services.AddHttpClient("CarvedRockApi", client =>
-    client.BaseAddress = new("https://api"));
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<TokenForwarder>();
+builder.Services.AddHttpClient("CarvedRockApi", 
+        client => client.BaseAddress = new("https://api"))
+    .AddHttpMessageHandler<TokenForwarder>(); ;
+
+//builder.Services.AddOpenIdConnectAccessTokenManagement();
+//builder.Services.AddUserAccessTokenHttpClient("AdminApi",
+//    configureClient: client => { client.BaseAddress = new Uri("https://api"); });
 
 var app = builder.Build();
 

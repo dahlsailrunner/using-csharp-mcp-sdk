@@ -13,4 +13,3 @@ public record ProductModel : NewProductModel
 {
     public int Id { get; set; }
 }
-
