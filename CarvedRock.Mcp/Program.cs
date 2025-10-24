@@ -37,14 +37,9 @@ builder.Services.AddAuthentication(options =>
             options.Authority = OAuthServerUrl;
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 ValidAudience = McpServerUrl,
-                ValidIssuer = OAuthServerUrl,
-                NameClaimType = "name",
-                RoleClaimType = "roles"
+                ValidIssuer = OAuthServerUrl
             };
         })
         .AddMcp(options =>
@@ -56,14 +51,21 @@ builder.Services.AddAuthentication(options =>
                 ScopesSupported = ["api", "openid", "profile", "email", "offline_access"]
             };
         });
+
 builder.Services.AddAuthorization();
 builder.Services.AddTransient<IClaimsTransformation, AdminClaimsTransformation>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddMcpServer()
-    .WithHttpTransport()     
-    .WithTools<CarvedRockTools>()
-    .WithTools<AdminTools>();
+    .WithHttpTransport(options =>
+    {
+        options.Stateless = true;
+        //options.ConfigureSessionOptions = AuthHelper.AuthorizeToolsForUser;
+    })
+    .WithToolsFromAssembly()
+    //.WithTools<CarvedRockTools>() 
+    //.WithTools<AdminTools>()
+    .AddAuthorizationFilters();  // Add support for [Authorize] and [AllowAnonymous]
 
 builder.Services.AddHttpClient("CarvedRockApi", client =>
     client.BaseAddress = new("https://api"));
@@ -80,7 +82,9 @@ app.MapDefaultEndpoints();
 app.UseAuthentication();
 app.UseAuthorization();
 
-var mcpEndpoint = app.MapMcp()
-    .RequireAuthorization();  // this would require auth for **all** connections
+app.UseMiddleware<UserScopeMiddleware>();
+
+var mcpEndpoint = app.MapMcp();
+    //.RequireAuthorization();  // this would require auth for **all** connections
 
 app.Run();

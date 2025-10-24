@@ -1,8 +1,10 @@
-﻿using ModelContextProtocol.Server;
+﻿using Microsoft.AspNetCore.Authorization;
+using ModelContextProtocol.Server;
 using System.ComponentModel;
 
 namespace CarvedRock.Mcp;
 
+[Authorize(Roles = "admin")]
 [McpServerToolType]
 public class AdminTools(IHttpClientFactory httpClientFactory)
 {
@@ -18,7 +20,8 @@ public class AdminTools(IHttpClientFactory httpClientFactory)
         return new OperationResult("ok");
     }
 
-    [McpServerTool(Name = "set_product_price"), Description("Update the price of a single product based on its Id.")]
+    [McpServerTool(Name = "set_product_price")]
+    [Description("Update the price of a single product based on its Id.")]    
     public async Task<OperationResult> UpdateProductPriceAsync(int id, double newPrice, CancellationToken cancellationToken = default)
     {
         var client = httpClientFactory.CreateClient("CarvedRockApi");
