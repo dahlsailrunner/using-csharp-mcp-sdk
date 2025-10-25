@@ -1,5 +1,7 @@
 ﻿using CarvedRock.IntegrationTests.Utils;
+using ModelContextProtocol;
 using ModelContextProtocol.Protocol;
+using System.Text.Json;
 
 namespace CarvedRock.IntegrationTests;
 public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
@@ -31,7 +33,7 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
         Assert.NotEqual(true, getProductsResponse.IsError); // iserror is nullable bool
 
         var productJson = getProductsResponse.Content.First(c => c.Type == "text") as TextContentBlock;
-        var products = System.Text.Json.JsonSerializer.Deserialize<List<ProductModel>>(productJson?.Text ?? "[]",
+        var products = JsonSerializer.Deserialize<List<ProductModel>>(productJson?.Text ?? "[]",
             fixture.JsonSerializerOptions);
 
         Assert.NotNull(products);
@@ -70,7 +72,52 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
         adminTool = tools.FirstOrDefault(t => t.Name == "set_product_price");
         Assert.NotNull(adminTool);
     }
+
+    [Fact]
+    public async Task DeleteProductWorksForBob()
+    {
+        var mcpClient = await fixture.GetMcpClient("bob", "bob", fixture.CancelToken);
+
+        var response = await mcpClient.CallToolAsync("delete_product", 
+            new Dictionary<string, object?> 
+            { 
+                {"id", 22} 
+            },
+            cancellationToken: fixture.CancelToken);
+
+        var responseJson = response.Content.First(c => c.Type == "text") as TextContentBlock;
+        var opResult = JsonSerializer.Deserialize<OperationResult>(responseJson?.Text ?? "{}",
+            fixture.JsonSerializerOptions);
+
+        Assert.NotNull(response);
+        Assert.Equal("ok", opResult?.Status);
+    }
+
+    [Fact]
+    public async Task DeleteProductDoesNotWorkForAlice()
+    {
+        var mcpClient = await fixture.GetMcpClient("alice", "alice", fixture.CancelToken);
+
+        try 
+        {
+            var response = await mcpClient.CallToolAsync("delete_product",
+            new Dictionary<string, object?>
+            {
+                {"id", 1}
+            },
+            cancellationToken: fixture.CancelToken);
+        }
+        catch (McpException ex)
+        {
+            Assert.Equal(McpErrorCode.InvalidRequest, ex.ErrorCode);
+            Assert.Contains("requires authorization", ex.Message);
+            return;
+        }
+        Assert.Fail("Expected an McpException to be thrown.");
+    }
 }
+
+public record OperationResult(string Status, string? Message = null);
 
 public record ProductModel
 {

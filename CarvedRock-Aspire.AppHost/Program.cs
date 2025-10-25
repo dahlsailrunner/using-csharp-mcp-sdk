@@ -8,6 +8,7 @@ var idsrv = builder.AddProject<Projects.Duende_IdentityServer_Demo>("idsrv");
 var api = builder.AddProject<Projects.CarvedRock_Api>("api")
     .WithReference(carvedrockdb)
     .WaitFor(carvedrockdb)
+    .WithEnvironment("Auth__Authority", idsrv.GetEndpoint("https"))
     .WithHttpHealthCheck("/health");
 
 var mailpit = builder.AddMailPit("smtp");
