@@ -13,7 +13,6 @@ public class AppFixture : IDisposable
 
     public CancellationToken CancelToken { get; set; }
     public DistributedApplication App { get; private set; } = null!;
-    public McpClient McpClient { get; private set; } = null!;
 
     public AppFixture()
     {
@@ -32,14 +31,34 @@ public class AppFixture : IDisposable
 
         App = await appHost.BuildAsync(cancellationToken).WaitAsync(_defaultTimeout, cancellationToken);
         await App.StartAsync(cancellationToken).WaitAsync(_defaultTimeout, cancellationToken);
+    }
 
-        // Create MCP Client for the server in the application
+    public async Task<McpClient> GetMcpClient(string? user = null, string? pwd = null, CancellationToken cancelToken = default)
+    {
+        if (user == null) return await GetAnonymousMcpClient(cancelToken);
+
+        // must want an authenticated client
+        var accessToken = await AuthHelper.GetUserAccessTokenAsync(this, user, pwd!,
+            cancellationToken: cancelToken);
+
+        var clientTransport = new HttpClientTransportOptions
+        {
+            Endpoint = App.GetEndpoint("mcp", "http"),
+            TransportMode = HttpTransportMode.StreamableHttp,
+            AdditionalHeaders = new Dictionary<string, string>()
+        };
+        clientTransport.AdditionalHeaders.Add("Authorization", $"Bearer {accessToken}");
+        return await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cancelToken);
+    }
+
+    private async Task<McpClient> GetAnonymousMcpClient(CancellationToken cancelToken = default)
+    {
         var clientTransport = new HttpClientTransportOptions
         {
             Endpoint = App.GetEndpoint("mcp", "http"),
             TransportMode = HttpTransportMode.StreamableHttp
         };
-        McpClient = await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cancellationToken);
+        return await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cancelToken);
     }
 
     public void Dispose()

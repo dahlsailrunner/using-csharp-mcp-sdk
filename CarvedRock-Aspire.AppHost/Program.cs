@@ -3,6 +3,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 var carvedrockdb = builder.AddPostgres("postgres")
                           .AddDatabase("CarvedRockPostgres");
 
+var idsrv = builder.AddProject<Projects.Duende_IdentityServer_Demo>("idsrv");
+
 var api = builder.AddProject<Projects.CarvedRock_Api>("api")
     .WithReference(carvedrockdb)
     .WaitFor(carvedrockdb)
@@ -19,11 +21,10 @@ builder.AddProject<Projects.CarvedRock_WebApp>("webapp")
 
 var mcp = builder.AddProject<Projects.CarvedRock_Mcp>("mcp")
     .WithReference(api)
+    .WithEnvironment("AuthServer", idsrv.GetEndpoint("https"))
     .WithHttpHealthCheck("/health");
 
 builder.AddMcpInspector("mcp-inspector")
     .WithMcpServer(mcp, path: "");
-
-builder.AddProject<Projects.Duende_IdentityServer_Demo>("idsrv");
 
 builder.Build().Run();

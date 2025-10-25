@@ -5,6 +5,9 @@ using System.Security.Claims;
 
 namespace CarvedRock.Mcp;
 
+// --------------------
+// NOT ACTUALLY USED!
+// --------------------
 public static class AuthHelper
 {
     public static async Task AuthorizeToolsForUser(HttpContext ctx, McpServerOptions options, CancellationToken cancelToken)

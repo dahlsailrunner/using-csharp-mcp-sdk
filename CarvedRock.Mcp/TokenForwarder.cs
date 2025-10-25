@@ -9,10 +9,13 @@ public class TokenForwarder(IHttpContextAccessor httpContextAccessor) : Delegati
     {
         var httpContext = httpContextAccessor.HttpContext;
         if (httpContext?.Request.Headers.Authorization.FirstOrDefault() is string authHeader &&
-            authHeader.StartsWith($"{JwtBearerDefaults.AuthenticationScheme} ", StringComparison.OrdinalIgnoreCase))
+            authHeader.StartsWith($"{JwtBearerDefaults.AuthenticationScheme} ", 
+                    StringComparison.OrdinalIgnoreCase))
         {
             var tokenValue = authHeader.AsSpan(JwtBearerDefaults.AuthenticationScheme.Length + 1).Trim();
-            request.Headers.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, tokenValue.ToString());
+            request.Headers.Authorization = new AuthenticationHeaderValue(
+                JwtBearerDefaults.AuthenticationScheme, 
+                tokenValue.ToString());
         }
 
         return base.SendAsync(request, cancellationToken);

@@ -29,7 +29,7 @@ internal static class HostingExtensions
         // cookie policy to deal with temporary browser incompatibilities
         builder.Services.AddSameSiteCookiePolicy();
 
-        builder.Services.AddIdentityServer(options =>
+        var idsrv = builder.Services.AddIdentityServer(options =>
             {
                 options.Events.RaiseErrorEvents = true;
                 options.Events.RaiseFailureEvents = true;
@@ -50,7 +50,9 @@ internal static class HostingExtensions
             .AddInMemoryApiResources(Config.ApiResources)
             .AddInMemoryClients(Config.Clients)
             .AddTestUsers(TestUsers.Users)
-            .AddJwtBearerClientAuthentication();
+            .AddJwtBearerClientAuthentication();        
+
+        //builder.Services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerValidator>();
 
         builder.Services.AddAuthentication()
             .AddLocalApi()

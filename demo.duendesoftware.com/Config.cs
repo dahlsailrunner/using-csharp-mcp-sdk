@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer.Models;
 
 namespace Duende.IdentityServer.Demo
 {
@@ -191,7 +189,18 @@ namespace Duende.IdentityServer.Demo
                     RefreshTokenUsage = TokenUsage.ReUse,
                     RefreshTokenExpiration = TokenExpiration.Sliding
                 },
-                
+
+                new Client
+                {
+                    // Resource Owner Password grant for testing only - not for production or real use cases
+                    ClientId = "testing.confidential",  
+                    ClientName = "Client for use in Testing Different Tokens",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedScopes = { "openid", "profile", "email", "api" },
+                    AllowOfflineAccess = true
+                },
+
                 new Client
                 {
                     ClientId = "interactive.confidential.jwt",
