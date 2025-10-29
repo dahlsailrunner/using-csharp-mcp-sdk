@@ -10,7 +10,6 @@
 	<ItemGroup>
 		<PackageReference Include="Duende.IdentityServer" />
 		<PackageReference Include="Duende.AspNetCore.Authentication.JwtBearer" />
-		<!--<PackageReference Include="Serilog.AspNetCore" />-->
 	</ItemGroup>
 
 	<ItemGroup>

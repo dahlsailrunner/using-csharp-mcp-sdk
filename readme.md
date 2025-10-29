@@ -13,9 +13,22 @@ projects.  Start by clicking the link for the WebApp project!
 
 ## Features
 
-This is a simple e-commerce application.
+This is a simple e-commerce application for learning purposes - specifically around MCP Servers.
 
 Here are the features:
+
+- **MCP**
+  - 4 tools are in the MCP server
+  - The MCP Inspector is included via an Aspire hosting package to make interactively testing the MCP server easy
+  - `CarvedRockTools.cs` contains 2 tools that can be called anonymously (if `RequireAuthorization`()
+     is not included on the `MapMcp()` call in `Program.cs`
+  - `AdminTools.cs` contains 2 tools that will require a user with the `admin` role both to see when listing tools
+     and to execute them
+  - OAuth is implemented for security, with a local instance of the 
+    [demo Duende IdentityServer](https://github.com/DuendeSoftware/demo.duendesoftware.com) due to a 
+    couple of changes needed for it that the [public hosted demo](https://demo.duendesoftware.com) 
+    does not include.
+  - Automated tests are included in the `tests` folder that will test the MCP server.
 
 - **API**
   - `GET` based on category (or "all") and by id allow anonymous requests
