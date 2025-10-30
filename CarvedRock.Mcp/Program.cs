@@ -59,6 +59,7 @@ builder.Services.AddMcpServer()
     .WithToolsFromAssembly() // just get everything registered, then use authz attributes to filter
     //.WithTools<CarvedRockTools>() 
     //.WithTools<AdminTools>()
+    // Authorization Filter info: https://modelcontextprotocol.github.io/csharp-sdk/concepts/filters.html#built-in-authorization-filters
     .AddAuthorizationFilters();  // Add support for [Authorize] and [AllowAnonymous]
 
 builder.Services.AddHttpContextAccessor();
@@ -81,7 +82,7 @@ app.UseAuthorization();
 
 app.UseMiddleware<UserScopeMiddleware>();
 
-var mcpEndpoint = app.MapMcp();
-    //.RequireAuthorization();  // this would require auth for **all** connections (even "initialize")
-                                // only add if you don't have any anonymous tools to support
+var mcpEndpoint = app.MapMcp()
+    .RequireAuthorization();  // this would require auth for **all** connections (even "initialize")
+                              // only add if you don't have any anonymous tools to support
 app.Run();

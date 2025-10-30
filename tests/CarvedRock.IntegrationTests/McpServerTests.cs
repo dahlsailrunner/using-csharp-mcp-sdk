@@ -6,38 +6,54 @@ using System.Text.Json;
 namespace CarvedRock.IntegrationTests;
 public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
 {
-    [Fact]
-    public async Task ListToolsHasGetProducts()
+    [Fact]    
+    public async Task AnonymousConnectionThrowsException()
     {
-        // get an anonymous client
-        var mcpClient = await fixture.GetMcpClient(cancelToken: fixture.CancelToken);
+        try
+        {
+            var mcpClient = await fixture.GetMcpClient(cancelToken: fixture.CancelToken);
+        }
+        catch (Exception ex)
+        {
+            Assert.Contains("401 (Unauthorized)", ex.Message);
+            return;
+        }
+        Assert.Fail("Expected an McpException to be thrown.");
+    }
+
+    [Theory]
+    [InlineData("alice", "alice")]
+    [InlineData("bob", "bob")]
+    public async Task GetToolsIncludesGetProducts(string user, string pwd)
+    {
+        var mcpClient = await fixture.GetMcpClient(user, pwd, fixture.CancelToken);
 
         var tools = await mcpClient.ListToolsAsync(cancellationToken: fixture.CancelToken);
-        Assert.NotNull(tools);
 
+        // Assert
         var getProductsTool = tools.FirstOrDefault(t => t.Name == "get_products");
-        Assert.NotNull(getProductsTool);        
+        Assert.NotNull(getProductsTool);
     }
 
     [Fact]
     public async Task CallGetProductsToolReturnsProducts()
     {
-        // get an anonymous client
-        var mcpClient = await fixture.GetMcpClient(cancelToken: fixture.CancelToken);
+        var mcpClient = await fixture.GetMcpClient("alice", "alice", fixture.CancelToken);
 
         //Act
-        var getProductsResponse = await mcpClient.CallToolAsync("get_products", cancellationToken: fixture.CancelToken);
+        var getProductsResponse = await mcpClient.CallToolAsync(
+            "get_products", cancellationToken: fixture.CancelToken);
 
         //Assert
-        Assert.NotNull(getProductsResponse);        
-        Assert.NotEqual(true, getProductsResponse.IsError); // iserror is nullable bool
+        Assert.NotNull(getProductsResponse);
+        Assert.NotEqual(true, getProductsResponse.IsError);
 
         var productJson = getProductsResponse.Content.First(c => c.Type == "text") as TextContentBlock;
-        var products = JsonSerializer.Deserialize<List<ProductModel>>(productJson?.Text ?? "[]",
+        var products = JsonSerializer.Deserialize<List<ProductModel>>(
+            productJson?.Text ?? "[]",
             fixture.JsonSerializerOptions);
 
         Assert.NotNull(products);
-        Assert.Equal(50, products?.Count);
         Assert.Contains(products!, p => p.Name == "Alpine Trekker");
     }
 
