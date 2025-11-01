@@ -1,9 +1,10 @@
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.IdentityModel.Tokens;
-using CarvedRock.WebApp;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using CarvedRock.Core;
+using CarvedRock.WebApp;
+using Duende.AccessTokenManagement.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,10 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpClient<IProductService, ProductService>();
+
+builder.Services.AddOpenIdConnectAccessTokenManagement();
+builder.Services.AddUserAccessTokenHttpClient("AI",
+       configureClient: client => client.BaseAddress = new("https://api"));
 
 builder.AddMailKitClient("smtp");
 builder.Services.AddScoped<IEmailSender, EmailService>();

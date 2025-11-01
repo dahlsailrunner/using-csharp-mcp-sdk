@@ -5,7 +5,10 @@ namespace CarvedRock.Api;
 
 public static class McpClientHelper
 {
-    public static async Task<McpClient> GetMcpClient(IConfiguration config, IHttpContextAccessor httpCtxAccessor, CancellationToken cxl)
+    public static async Task<McpClient> GetMcpClient(
+        IConfiguration config, 
+        IHttpContextAccessor httpCtxAccessor, 
+        CancellationToken cxl)
     {
         var httpCtx = httpCtxAccessor.HttpContext!;
         if (httpCtx == null || httpCtx.User.Identity == null || !httpCtx.User.Identity.IsAuthenticated)
@@ -30,7 +33,8 @@ public static class McpClientHelper
         return await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cxl);
     }
 
-    public static async Task<McpClient> GetTokenForwardingClient(IHttpContextAccessor httpCtxAccessor, IConfiguration config, CancellationToken cxl)
+    public static async Task<McpClient> GetTokenForwardingClient(IHttpContextAccessor httpCtxAccessor, 
+        IConfiguration config, CancellationToken cxl)
     {
         var clientTransport = new HttpClientTransportOptions
         {

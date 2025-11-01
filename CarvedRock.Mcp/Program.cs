@@ -56,6 +56,7 @@ builder.Services.AddMcpServer()
         options.Stateless = true; // important for scaling
         //options.ConfigureSessionOptions = AuthHelper.AuthorizeToolsForUser;
     })
+    .WithPromptsFromAssembly() 
     .WithToolsFromAssembly() // just get everything registered, then use authz attributes to filter
     //.WithTools<CarvedRockTools>() 
     //.WithTools<AdminTools>()
