@@ -12,7 +12,16 @@ using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.AddServiceDefaults(); 
+builder.AddServiceDefaults();
+
+builder.AddAzureOpenAIClient("kyt-AzureOpenAI", configureSettings: settings =>
+{
+    settings.EnableSensitiveTelemetryData = true;
+    settings.Endpoint = new Uri(builder.Configuration.GetValue<string>("AIConnection:Endpoint")!);
+    settings.Key = builder.Configuration.GetValue<string>("AIConnection:Key")!;
+}).AddChatClient(builder.Configuration.GetValue<string>("AIConnection:Deployment")!);
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddProblemDetails(opts => // built-in problem details support
     opts.CustomizeProblemDetails = (ctx) =>
@@ -91,3 +100,5 @@ static void SetupDevelopment(WebApplication app)
         options.OAuthUsePkce();
     });
 }
+
+record AIConnection(string Endpoint, string Key, string Deployment);

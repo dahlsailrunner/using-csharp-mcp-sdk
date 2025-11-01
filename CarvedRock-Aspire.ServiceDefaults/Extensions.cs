@@ -45,6 +45,7 @@ public static class Extensions
             {
                 metrics
                     .AddMeter("Experimental.ModelContextProtocol") // or ("*")
+                    .AddMeter("Experimental.Microsoft.Extensions.AI")
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation();
@@ -53,6 +54,7 @@ public static class Extensions
             {
                 tracing
                 .AddSource("Experimental.ModelContextProtocol") // or ("*")
+                .AddSource("Experimental.Microsoft.Extensions.AI")
                 .AddAspNetCoreInstrumentation(options =>
                 {
                     options.Filter = (httpContext) =>

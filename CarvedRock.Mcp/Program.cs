@@ -82,7 +82,7 @@ app.UseAuthorization();
 
 app.UseMiddleware<UserScopeMiddleware>();
 
-var mcpEndpoint = app.MapMcp()
-    .RequireAuthorization();  // this would require auth for **all** connections (even "initialize")
+var mcpEndpoint = app.MapMcp();
+    //.RequireAuthorization();  // this would require auth for **all** connections (even "initialize")
                               // only add if you don't have any anonymous tools to support
 app.Run();

@@ -10,6 +10,7 @@
 	<ItemGroup>
 		<PackageReference Include="Duende.IdentityServer" />
 		<PackageReference Include="Duende.AspNetCore.Authentication.JwtBearer" />
+		<PackageReference Include="IdentityModel" />
 	</ItemGroup>
 
 	<ItemGroup>
