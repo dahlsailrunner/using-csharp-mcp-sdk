@@ -38,8 +38,9 @@ public class AgentController(IChatClient chatClient, IConfiguration config, IHtt
     
     private async Task<string> GetPromptAsync(string message, McpClient mcpClient, CancellationToken cxl)
     {
-        if (message.StartsWith("/admin", StringComparison.InvariantCultureIgnoreCase))
-        {
+        if (message.StartsWith("/admin", StringComparison.InvariantCultureIgnoreCase) && 
+            User.IsInRole("admin"))
+        { 
             var prompt = await mcpClient.GetPromptAsync("admin_prompt", cancellationToken: cxl);
             var adminPrompt = new StringBuilder();
             foreach (var msg in prompt.Messages)
