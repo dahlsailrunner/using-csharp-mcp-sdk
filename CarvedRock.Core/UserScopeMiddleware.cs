@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IdentityModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 
@@ -14,10 +15,17 @@ public class UserScopeMiddleware(RequestDelegate next, ILogger<UserScopeMiddlewa
             var subjectId = user.Claims.First(c => 
                         c.Type == ClaimTypes.NameIdentifier || c.Type == "sub")?.Value;
 
+            var actorClaim = user.Claims.FirstOrDefault(c => c.Type == JwtClaimTypes.Actor);
+            if (actorClaim != null)
+            {
+                var actorInfo = System.Text.Json.JsonSerializer.Deserialize<ActorInfo>(actorClaim.Value);
+                subjectId += $"/actor:{actorInfo!.client_id}";
+            }
+
             using (logger.BeginScope("User:{user}, SubjectId:{subject}",
                 user.Identity.Name??"",
                 subjectId))
-            {
+            {                
                 await next(context);
             }
         }
@@ -27,3 +35,5 @@ public class UserScopeMiddleware(RequestDelegate next, ILogger<UserScopeMiddlewa
         }
     }
 }
+
+public record ActorInfo(string client_id);

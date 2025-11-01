@@ -50,9 +50,13 @@ internal static class HostingExtensions
             .AddInMemoryApiResources(Config.ApiResources)
             .AddInMemoryClients(Config.Clients)
             .AddTestUsers(TestUsers.Users)
-            .AddJwtBearerClientAuthentication();        
+            .AddJwtBearerClientAuthentication();
 
-        //builder.Services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerValidator>();
+        // registers extension grant validator for the token exchange grant type
+        idsrv.AddExtensionGrantValidator<TokenExchangeGrantValidator>();
+
+        // register a profile service to emit the act claim
+        idsrv.AddProfileService<ProfileService>();
 
         builder.Services.AddAuthentication()
             .AddLocalApi()

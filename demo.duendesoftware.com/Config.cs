@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.Models;
+﻿using IdentityModel;
+using Duende.IdentityServer.Models;
 
 namespace Duende.IdentityServer.Demo
 {
@@ -18,7 +19,7 @@ namespace Duende.IdentityServer.Demo
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email(),
+                new IdentityResources.Email()
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -184,6 +185,26 @@ namespace Duende.IdentityServer.Demo
 
                     AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                     AllowedScopes = AllScopes,
+
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage = TokenUsage.ReUse,
+                    RefreshTokenExpiration = TokenExpiration.Sliding
+                },
+
+                // interactive
+                new Client
+                {
+                    ClientId = "ai.agent",
+                    ClientName = "AI Delegation Client",
+
+                    RedirectUris = { "https://notused" },
+                    PostLogoutRedirectUris = { "https://notused" },
+
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+
+                    AllowedGrantTypes = { OidcConstants.GrantTypes.TokenExchange },
+                    //AllowedScopes = AllScopes,
+                    AllowedScopes = { "openid", "profile", "email", "api" },
 
                     AllowOfflineAccess = true,
                     RefreshTokenUsage = TokenUsage.ReUse,
