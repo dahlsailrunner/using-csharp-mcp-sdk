@@ -34,7 +34,7 @@ public partial class ListingModel(IProductService productService,
         var client = httpClientFactory.CreateClient("AI");
 
         var request = new HttpRequestMessage(HttpMethod.Get,
-            $"Agent/recommendation?message={Uri.EscapeDataString(message ?? string.Empty)}");
+            $"Agent?message={Uri.EscapeDataString(message ?? string.Empty)}");
 
         var apiResponse = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cxl);
         apiResponse.EnsureSuccessStatusCode();
