@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CarvedRock.Core;
+using Duende.IdentityModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
+using System.Security.Claims;
 using System.Text.Json;
 
 namespace CarvedRock.Mcp;
 
 [Authorize(Roles = "admin")]
 [McpServerToolType]
-public class AdminTools(IHttpClientFactory httpClientFactory)
+public class AdminTools(IHttpClientFactory httpClientFactory, ILogger<AdminTools> logger,
+    IHttpContextAccessor httpCtxAccessor)
 {
     public record OperationResult(string Status, string? Message = null);
 
@@ -19,9 +23,12 @@ public class AdminTools(IHttpClientFactory httpClientFactory)
         var response = await client.DeleteAsync($"product/{id}", cancellationToken);
         if (!response.IsSuccessStatusCode) throw new Exception($"Error deleting product {id}; HttpResponseCode was {(int)response.StatusCode}");
 
+        LogDeletionActivity(id, httpCtxAccessor, logger);
+        
         return new OperationResult("ok");
     }
 
+    
     [McpServerTool(Name = "set_product_price")]
     [Description("Update the price of a single product based on its Id.")]    
     public async Task<OperationResult> UpdateProductPriceAsync(int id, double newPrice, CancellationToken cancellationToken = default)
@@ -61,6 +68,27 @@ public class AdminTools(IHttpClientFactory httpClientFactory)
             
 
         return new OperationResult("ok");
+    }
+
+    private void LogDeletionActivity(int id, IHttpContextAccessor httpCtxAccessor, ILogger<AdminTools> logger)
+    {
+        var httpCtx = httpCtxAccessor.HttpContext!;
+        var user = httpCtx.User;
+
+        var actorClaim = user.Claims.FirstOrDefault(c => c.Type == JwtClaimTypes.Actor);
+        ActorInfo? actorInfo = null;
+        if (actorClaim != null)
+        {
+            actorInfo = JsonSerializer.Deserialize<ActorInfo>(actorClaim.Value);
+        }
+
+        // make this conditional and include or exclude the actor info based on whether it exists
+        logger.LogInformation("Product {ProductId} deleted by user {User} (subject: {SubjectId}, " +
+            "actor client_id: {ActorClientId})",
+            id,
+            user.Identity?.Name ?? "",
+            user.Claims.First(c => c.Type == ClaimTypes.NameIdentifier || c.Type == "sub")?.Value,
+            actorInfo?.client_id ?? "");
     }
 }
 
