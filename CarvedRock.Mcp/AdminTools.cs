@@ -2,10 +2,12 @@
 using Duende.IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ModelContextProtocol.Protocol;
 using ModelContextProtocol.Server;
 using System.ComponentModel;
 using System.Security.Claims;
 using System.Text.Json;
+using static ModelContextProtocol.Protocol.ElicitRequestParams;
 
 namespace CarvedRock.Mcp;
 
@@ -31,7 +33,7 @@ public class AdminTools(IHttpClientFactory httpClientFactory, ILogger<AdminTools
     
     [McpServerTool(Name = "set_product_price")]
     [Description("Update the price of a single product based on its Id.")]    
-    public async Task<OperationResult> UpdateProductPriceAsync(int id, double newPrice, CancellationToken cancellationToken = default)
+    public async Task<OperationResult> UpdateProductPriceAsync(int id, double newPrice, McpServer server, CancellationToken cancellationToken = default)
     {
         var client = httpClientFactory.CreateClient("CarvedRockApi");
 
@@ -48,6 +50,35 @@ public class AdminTools(IHttpClientFactory httpClientFactory, ILogger<AdminTools
         {
             var content = await response.Content.ReadAsStringAsync(cancellationToken);
             var problem = JsonSerializer.Deserialize<ProblemDetails>(content);
+
+            if (problem?.Title == "Validation error" && server.ClientCapabilities?.Elicitation != null)
+            {
+                // ELICITION EXAMPLE:  Maybe an alternative would be to confirm deletion?
+                // MCP Server cannot be STATELESS
+                // https://modelcontextprotocol.github.io/csharp-sdk/concepts/elicitation/elicitation.html
+                // Maybe a method: GetRevisedPriceAndTryAgain() ?
+                var errorMessage = problem.Extensions.First().Value; // TODO: parse out max / min?
+
+                var updatedPriceSchema = new RequestSchema
+                {
+                    Properties = { ["RevisedPrice"] = new NumberSchema() { Maximum = 300, Minimum = 50 } }
+                };
+
+                using var extendedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                extendedCts.CancelAfter(TimeSpan.FromMinutes(5));
+                var priceResponse = await server.ElicitAsync(new ElicitRequestParams
+                {
+                    Message = $"Is there a different price you'd like to use? ({errorMessage})",
+                    RequestedSchema = updatedPriceSchema,
+
+                }, extendedCts.Token);
+
+                if (priceResponse.IsAccepted)
+                {
+                    var newPriceValue = (priceResponse.Content?["RevisedPrice"])?.GetDouble();
+                    // TODO: Retry the call with a new price
+                }
+            }
 
             var errorDetails = "";
             if (problem != null)
