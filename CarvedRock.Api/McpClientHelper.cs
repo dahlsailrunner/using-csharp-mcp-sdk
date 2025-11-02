@@ -8,8 +8,8 @@ namespace CarvedRock.Api;
 public static class McpClientHelper
 {
     public static async Task<McpClient> GetMcpClient(
-        IConfiguration config, 
-        IHttpContextAccessor httpCtxAccessor, 
+        IConfiguration config,
+        IHttpContextAccessor httpCtxAccessor,
         CancellationToken cxl)
     {
         var httpCtx = httpCtxAccessor.HttpContext!;
@@ -35,7 +35,7 @@ public static class McpClientHelper
         return await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cxl);
     }
 
-    public static async Task<McpClient> GetTokenForwardingClient(IHttpContextAccessor httpCtxAccessor, 
+    public static async Task<McpClient> GetTokenForwardingClient(IHttpContextAccessor httpCtxAccessor,
         IConfiguration config, CancellationToken cxl)
     {
         var clientTransport = new HttpClientTransportOptions
@@ -63,7 +63,9 @@ public static class McpClientHelper
             authHeader.StartsWith($"{JwtBearerDefaults.AuthenticationScheme} ",
                     StringComparison.OrdinalIgnoreCase))
         {
-            var accessToken = authHeader.Replace($"{JwtBearerDefaults.AuthenticationScheme} ", "", StringComparison.OrdinalIgnoreCase).Trim();
+            //https://docs.duendesoftware.com/identityserver/tokens/extension-grants/#token-exchange
+            var accessToken = authHeader.Replace($"{JwtBearerDefaults.AuthenticationScheme} ", "",
+                                    StringComparison.OrdinalIgnoreCase).Trim();
             var newAccessToken = await GetDelegatedAccessTokenAsync(accessToken);
             return $"{JwtBearerDefaults.AuthenticationScheme} {newAccessToken}";
             //return authHeader;
@@ -74,7 +76,8 @@ public static class McpClientHelper
 
     private static async Task<string> GetDelegatedAccessTokenAsync(string accessToken)
     {
-        var idSrvUrl = "https://localhost:5001/";
+
+        var idSrvUrl = "https://localhost:5001/"; // TODO: Get from config
         var client = new HttpClient() { BaseAddress = new Uri(idSrvUrl) };
 
         var response = await client.RequestTokenExchangeTokenAsync(new TokenExchangeTokenRequest
@@ -94,6 +97,5 @@ public static class McpClientHelper
         });
 
         return response.AccessToken!;
-
     }
 }
