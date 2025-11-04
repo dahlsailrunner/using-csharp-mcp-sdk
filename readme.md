@@ -56,7 +56,7 @@ Here are the features:
 
 * **MCP**
   * 4 tools are in the MCP server
-  * The MCP Inspector is included via an Aspire hosting package to make interactively testing the MCP server easy
+  * [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is included via an Aspire hosting package to make interactively testing the MCP server easy
   * `CarvedRockTools.cs` contains 2 tools that can be called anonymously (if `RequireAuthorization`()
      is not included on the `MapMcp()` call in `Program.cs`
   * `AdminTools.cs` contains 2 tools that will require a user with the `admin` role both to see when listing tools
@@ -68,12 +68,14 @@ Here are the features:
   * Automated tests are included in the `tests` folder that will test the MCP server.
 
 * **API**
+  * `GET Agent` method (in `AgentController.cs`) that provides some simple AI functionality
   * `GET` based on category (or "all") and by id allow anonymous requests
   * `POST`, `PUT`, and `DELETE` require authentication and an `admin` role (available with the `bob` login, but not `alice`)
   * Validation will be done with [FluentValidation](https://docs.fluentvalidation.net/en/latest/index.html) and errors returned as a `400 Bad Request` with `ProblemDetails`
   * A `GET` with a category of something other than "all", "boots", "equip", or "kayak" will return a `500 internal server error` with `ProblemDetails`
   * Data is seeded by the `SeedData.json` contents in the `Data` project
-* Authentication provided by OIDC via a [demo instance of Duende IdentityServer](https://demo.duendesoftware.com) (`bob` is an admin, `alice` is not)
+
+* Authentication provided by OIDC via a demo instance of Duende IdentityServer (`bob` is an admin, `alice` is not)
 
 * **WebApp**
   * The home page and listing pages will show a subset of products
