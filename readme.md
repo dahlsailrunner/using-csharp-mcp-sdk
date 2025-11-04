@@ -45,6 +45,9 @@ if you don't already have the Postgres container images downloaded.
 The Aspire Dashboard will be launched and that will have links for the different
 projects.  Start by clicking the link for the WebApp project!
 
+**SPECIAL NOTE:** Enter `interactive.public` in the **Client ID** field
+in the MCP Inspector to get authentication working from it.
+
 ## Features
 
 This is a simple e-commerce application for learning purposes - specifically around MCP Servers.
