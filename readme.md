@@ -32,7 +32,7 @@ scenarios for the MCP server - including automated integration tests.
 > secrets for the API project and set the `AIConnection:Key` value.
 >
 > If you'd rather use OpenAI directly (also pretty simple), see the commented out
-> code and notes in Program.cs of the API project.
+> code and notes in `Program.cs` of the API project.
 
 Make sure the `CarvedRock-Aspire.AppHost` project is set as the startup
 project.
