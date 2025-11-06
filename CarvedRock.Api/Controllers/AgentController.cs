@@ -10,11 +10,14 @@ namespace CarvedRock.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AgentController(IChatClient chatClient, IConfiguration config, IHttpContextAccessor httpCtxAccessor) : ControllerBase
+public class AgentController(IChatClient chatClient, 
+                             IConfiguration config, 
+                             IHttpContextAccessor httpCtxAccessor) : ControllerBase
 {
     [AllowAnonymous]
     [HttpGet]
-    public async IAsyncEnumerable<string> Get(string message, [EnumeratorCancellation] CancellationToken cxl)
+    public async IAsyncEnumerable<string> Get(string message, 
+                                              [EnumeratorCancellation] CancellationToken cxl)
     {
         var mcpClient = await McpClientHelper.GetMcpClient(config, httpCtxAccessor, cxl);
  
@@ -36,7 +39,8 @@ public class AgentController(IChatClient chatClient, IConfiguration config, IHtt
         }
     }
     
-    private async Task<string> GetPromptAsync(string message, McpClient mcpClient, CancellationToken cxl)
+    private async Task<string> GetPromptAsync(string message, McpClient mcpClient, 
+                                              CancellationToken cxl)
     {
         if (message.StartsWith("/admin", StringComparison.InvariantCultureIgnoreCase) && 
             User.IsInRole("admin"))

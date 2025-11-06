@@ -32,7 +32,8 @@ public static class McpClientHelper
             Endpoint = new Uri(GetMcpServerUrl(config)),
             TransportMode = HttpTransportMode.StreamableHttp
         };
-        return await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cxl);
+        return await McpClient.CreateAsync(new HttpClientTransport(clientTransport),
+                                           cancellationToken: cxl);
     }
 
     public static async Task<McpClient> GetTokenForwardingClient(IHttpContextAccessor httpCtxAccessor,
@@ -44,9 +45,11 @@ public static class McpClientHelper
             TransportMode = HttpTransportMode.StreamableHttp,
             AdditionalHeaders = new Dictionary<string, string>()
         };
-        clientTransport.AdditionalHeaders.Add("Authorization", await GetAccessTokenFromHttpContext(httpCtxAccessor));
+        clientTransport.AdditionalHeaders.Add("Authorization",
+                            await GetAccessTokenFromHttpContext(httpCtxAccessor));
 
-        return await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cxl);
+        return await McpClient.CreateAsync(new HttpClientTransport(clientTransport),
+                                           cancellationToken: cxl);
     }
 
     private static string GetMcpServerUrl(IConfiguration config)
