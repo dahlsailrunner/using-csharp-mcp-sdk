@@ -36,10 +36,8 @@ You need the [Aspire prerequisites](https://aspire.dev/get-started/prerequisites
 > If you'd rather use OpenAI directly (also pretty simple), see the commented out
 > code and notes in `Program.cs` of the API project.
 
-Make sure the `CarvedRock-Aspire.AppHost` project is set as the startup
-project.
-
-Run it!
+**Run it!** *(You may need to make sure the `CarvedRock-Aspire.AppHost` project is set as the startup
+project.)*
 
 > **N O T E:** The first time you run the app, it may take a little longer to start
 if you don't already have the Postgres container images downloaded.
