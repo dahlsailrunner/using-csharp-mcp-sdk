@@ -12,9 +12,11 @@ scenarios for the MCP server - including automated integration tests.
 
 ## Getting Started
 
-> **NOTE:** Bring your own AI service!
-> For this app to be fully functional, you'll
-> need to have your own AI service that can be referenced.
+You need the [Aspire prerequisites](https://aspire.dev/get-started/prerequisites/) and the ability to run an `npx` command ([NodeJS](https://nodejs.org/en/download)).
+
+> **NOTE:** You also need to provide your own AI service if you want
+> this app to be fully functional with a chat interface that uses the
+> MCP server.
 >
 > To replicate what I have done:
 >
