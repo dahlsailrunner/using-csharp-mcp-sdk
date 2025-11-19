@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "CarvedRock.Developer": {
+      "type": "stdio",
+      "command": "dnx",
+      "args": [ "CarvedRock.Developer@0.1.0-beta", "--yes" ]
+    }
+  }
+}
