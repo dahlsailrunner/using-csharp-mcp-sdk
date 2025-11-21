@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace CarvedRock.Api;
@@ -29,15 +29,10 @@ public class SwaggerOptions(IConfiguration config) : IConfigureOptions<SwaggerGe
                 }
             }
         });
-        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+
+        options.AddSecurityRequirement((document) => new OpenApiSecurityRequirement()
         {
-            {
-                new OpenApiSecurityScheme
-                {
-                    Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
-                },
-                oauthScopes.Keys.ToArray()
-            }
+            [new OpenApiSecuritySchemeReference("oauth2", document)] = [.. oauthScopes.Keys]
         });
     }
 }
