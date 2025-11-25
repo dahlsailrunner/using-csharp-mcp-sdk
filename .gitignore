@@ -7,3 +7,4 @@ bin
 obj
 *.user
 .idea
+/CarvedRock-Aspire.AppHost/node_modules

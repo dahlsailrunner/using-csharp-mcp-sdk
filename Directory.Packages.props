@@ -8,11 +8,11 @@
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="13.0.0" />
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.0.0" />
     <PackageVersion Include="Azure.AI.OpenAI" Version="2.5.0-beta.1" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="9.9.0" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.McpInspector" Version="9.9.0" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="13.0.0" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.McpInspector" Version="13.0.0" />
     <PackageVersion Include="Duende.AccessTokenManagement" Version="4.0.1" />
-    <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.0.1" />
-    <PackageVersion Include="Duende.IdentityModel" Version="7.1.0" />
+    <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.1.0-rc.1" />
+    <PackageVersion Include="Duende.IdentityModel" Version="8.0.0-rc.1" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.0" />
     <PackageVersion Include="IdentityModel" Version="7.0.0" />
     <PackageVersion Include="MailKit" Version="4.14.1" />
@@ -44,8 +44,8 @@
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
     <PackageVersion Include="xunit.v3" Version="3.2.0" />
-    <PackageVersion Include="Duende.IdentityServer" Version="7.4.0-preview.2" />
-    <PackageVersion Include="Duende.AspNetCore.Authentication.JwtBearer" Version="0.2.0" />
+    <PackageVersion Include="Duende.IdentityServer" Version="7.4.0-rc.1" />
+    <PackageVersion Include="Duende.AspNetCore.Authentication.JwtBearer" Version="0.3.0-rc.1" />
     <PackageVersion Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 </Project>
