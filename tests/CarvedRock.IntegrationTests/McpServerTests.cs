@@ -6,29 +6,30 @@ using System.Text.Json;
 namespace CarvedRock.IntegrationTests;
 public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
 {
-    [Fact]    
-    public async Task AnonymousConnectionThrowsException()
-    {
-        try
-        {
-            var mcpClient = await fixture.GetMcpClient(cancelToken: fixture.CancelToken);
-        }
-        catch (Exception ex)
-        {
-            Assert.Contains("401 (Unauthorized)", ex.Message);
-            return;
-        }
-        Assert.Fail("Expected an McpException to be thrown.");
-    }
+    // Commented out because anonymous access is allowed currently; left here as an example.
+    //[Fact]
+    //public async Task AnonymousConnectionThrowsException()
+    //{
+    //    try
+    //    {
+    //        var mcpClient = await fixture.GetMcpClient(cancelToken: TestContext.Current.CancellationToken);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Assert.Contains("401 (Unauthorized)", ex.Message);
+    //        return;
+    //    }
+    //    Assert.Fail("Expected an McpException to be thrown.");
+    //}
 
     [Theory]
     [InlineData("alice", "alice")]
     [InlineData("bob", "bob")]
     public async Task GetToolsIncludesGetProducts(string user, string pwd)
     {
-        var mcpClient = await fixture.GetMcpClient(user, pwd, fixture.CancelToken);
+        var mcpClient = await fixture.GetMcpClient(user, pwd, TestContext.Current.CancellationToken);
 
-        var tools = await mcpClient.ListToolsAsync(cancellationToken: fixture.CancelToken);
+        var tools = await mcpClient.ListToolsAsync(cancellationToken: TestContext.Current.CancellationToken);
 
         // Assert
         var getProductsTool = tools.FirstOrDefault(t => t.Name == "get_products");
@@ -38,11 +39,11 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
     [Fact]
     public async Task CallGetProductsToolReturnsProducts()
     {
-        var mcpClient = await fixture.GetMcpClient("alice", "alice", fixture.CancelToken);
+        var mcpClient = await fixture.GetMcpClient("alice", "alice", TestContext.Current.CancellationToken);
 
         //Act
         var getProductsResponse = await mcpClient.CallToolAsync(
-            "get_products", cancellationToken: fixture.CancelToken);
+            "get_products", cancellationToken: TestContext.Current.CancellationToken);
 
         //Assert
         Assert.NotNull(getProductsResponse);
@@ -60,9 +61,9 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
     [Fact]
     public async Task ListToolsDoesNotHaveAdminToolsForAlice()
     {
-        var mcpClient = await fixture.GetMcpClient("alice", "alice", fixture.CancelToken);
+        var mcpClient = await fixture.GetMcpClient("alice", "alice", TestContext.Current.CancellationToken);
 
-        var tools = await mcpClient.ListToolsAsync(cancellationToken: fixture.CancelToken);
+        var tools = await mcpClient.ListToolsAsync(cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(tools);
         Assert.Equal(2, tools.Count);
 
@@ -76,9 +77,9 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
     [Fact]
     public async Task ListToolsHasAdminToolsForBob()
     {
-        var mcpClient = await fixture.GetMcpClient("bob", "bob", fixture.CancelToken);
+        var mcpClient = await fixture.GetMcpClient("bob", "bob", TestContext.Current.CancellationToken);
 
-        var tools = await mcpClient.ListToolsAsync(cancellationToken: fixture.CancelToken);
+        var tools = await mcpClient.ListToolsAsync(cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(tools);
         Assert.Equal(4, tools.Count);
 
@@ -92,14 +93,14 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
     [Fact]
     public async Task DeleteProductWorksForBob()
     {
-        var mcpClient = await fixture.GetMcpClient("bob", "bob", fixture.CancelToken);
+        var mcpClient = await fixture.GetMcpClient("bob", "bob", TestContext.Current.CancellationToken);
 
         var response = await mcpClient.CallToolAsync("delete_product", 
             new Dictionary<string, object?> 
             { 
                 {"id", 22} 
             },
-            cancellationToken: fixture.CancelToken);
+            cancellationToken: TestContext.Current.CancellationToken);
 
         var responseJson = response.Content.First(c => c.Type == "text") as TextContentBlock;
         var opResult = JsonSerializer.Deserialize<OperationResult>(responseJson?.Text ?? "{}",
@@ -112,7 +113,7 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
     [Fact]
     public async Task DeleteProductDoesNotWorkForAlice()
     {
-        var mcpClient = await fixture.GetMcpClient("alice", "alice", fixture.CancelToken);
+        var mcpClient = await fixture.GetMcpClient("alice", "alice", TestContext.Current.CancellationToken);
 
         try 
         {
@@ -121,7 +122,7 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
             {
                 {"id", 1}
             },
-            cancellationToken: fixture.CancelToken);
+            cancellationToken: TestContext.Current.CancellationToken);
         }
         catch (McpException ex)
         {

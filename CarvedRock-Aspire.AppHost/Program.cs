@@ -29,6 +29,7 @@ var mcp = builder.AddProject<Projects.CarvedRock_Mcp>("mcp")
 api.WithReference(mcp);  // add reference to mcp server from API
 
 builder.AddMcpInspector("mcp-inspector")
+    .WithEnvironment("NODE_TLS_REJECT_UNAUTHORIZED", "0")
     .WithMcpServer(mcp, path: "");
 
 builder.Build().Run();

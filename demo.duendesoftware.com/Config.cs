@@ -62,7 +62,7 @@ namespace Duende.IdentityServer.Demo
                     Scopes = { "api" }
                 },
 
-                new ApiResource("http://localhost:5241/", "Local MCP Server", new[] { "name", "email" })
+                new ApiResource("https://localhost:5241/", "Local MCP Server", new[] { "name", "email" })
                 {
                     ApiSecrets = { new Secret("secret".Sha256()) },
 

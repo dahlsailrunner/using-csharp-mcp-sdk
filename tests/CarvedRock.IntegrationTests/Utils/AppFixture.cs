@@ -5,23 +5,23 @@ using System.Text.Json;
 namespace CarvedRock.IntegrationTests.Utils;
 public class AppFixture : IDisposable
 {
-    private static readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(30);
+    private static readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(60);
     public readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     };
 
-    public CancellationToken CancelToken { get; set; }
     public DistributedApplication App { get; private set; } = null!;
 
     public AppFixture()
     {
-        CancelToken = new CancellationTokenSource(_defaultTimeout).Token;
-        InitializeAsync(CancelToken).GetAwaiter().GetResult();
+        InitializeAsync().GetAwaiter().GetResult();
     }
 
-    private async Task InitializeAsync(CancellationToken cancellationToken)
+    private async Task InitializeAsync()
     {
+        // takes longer than the xunit default timeout to spin up resources
+        var cancellationToken = new CancellationTokenSource(_defaultTimeout).Token;                 
         var appHost = await DistributedApplicationTestingBuilder.CreateAsync<Projects.CarvedRock_Aspire_AppHost>(cancellationToken);
 
         appHost.Services.ConfigureHttpClientDefaults(clientBuilder =>
@@ -43,7 +43,7 @@ public class AppFixture : IDisposable
 
         var clientTransport = new HttpClientTransportOptions
         {
-            Endpoint = App.GetEndpoint("mcp", "http"),
+            Endpoint = App.GetEndpoint("mcp", "https"),
             TransportMode = HttpTransportMode.StreamableHttp,
             AdditionalHeaders = new Dictionary<string, string>()
         };
@@ -55,7 +55,7 @@ public class AppFixture : IDisposable
     {
         var clientTransport = new HttpClientTransportOptions
         {
-            Endpoint = App.GetEndpoint("mcp", "http"),
+            Endpoint = App.GetEndpoint("mcp", "https"),
             TransportMode = HttpTransportMode.StreamableHttp
         };
         return await McpClient.CreateAsync(new HttpClientTransport(clientTransport), cancellationToken: cancelToken);

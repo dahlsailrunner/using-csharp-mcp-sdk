@@ -1,6 +1,8 @@
 using CarvedRock.IntegrationTests.Utils;
 
 namespace CarvedRock.IntegrationTests;
+
+
 public class HomePageTests(AppFixture fixture) : IClassFixture<AppFixture>
 {
     [Fact]
@@ -8,7 +10,7 @@ public class HomePageTests(AppFixture fixture) : IClassFixture<AppFixture>
     {
         // Act
         var httpClient = fixture.App.CreateHttpClient("webapp");
-        var response = await httpClient.GetAsync("/", fixture.CancelToken);
+        var response = await httpClient.GetAsync("/", TestContext.Current.CancellationToken);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
