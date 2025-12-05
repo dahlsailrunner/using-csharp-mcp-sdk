@@ -14,20 +14,20 @@ using System.IdentityModel.Tokens.Jwt;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
-builder.AddAzureOpenAIClient("kyt-AzureOpenAI", configureSettings: settings =>
-{
-    settings.EnableSensitiveTelemetryData = true;
-    settings.Endpoint = new Uri(builder.Configuration.GetValue<string>("AIConnection:Endpoint")!);
-    settings.Key = builder.Configuration.GetValue<string>("AIConnection:Key")!;
-}).AddChatClient(builder.Configuration.GetValue<string>("AIConnection:Deployment")!);
+// builder.AddAzureOpenAIClient("kyt-AzureOpenAI", configureSettings: settings =>
+// {
+//     settings.EnableSensitiveTelemetryData = true;
+//     settings.Endpoint = new Uri(builder.Configuration.GetValue<string>("AIConnection:Endpoint")!);
+//     settings.Key = builder.Configuration.GetValue<string>("AIConnection:Key")!;
+// }).AddChatClient(builder.Configuration.GetValue<string>("AIConnection:Deployment")!);
 
 // Add NuGet package reference to Aspire.OpenAI
 // Then add your API key for OpenAI to user secrets for the AIConnection:OpenAIKey value
-//builder.AddOpenAIClient("kyt-OpenAI", configureSettings: settings =>
-//{
-//    settings.EnableSensitiveTelemetryData = true;
-//    settings.Key = builder.Configuration.GetValue<string>("AIConnection:OpenAIKey");
-//}).AddChatClient(builder.Configuration.GetValue<string>("AIConnection:OpenAIModel"));
+builder.AddOpenAIClient("kyt-OpenAI", configureSettings: settings =>
+{
+    settings.EnableSensitiveTelemetryData = true;
+    settings.Key = builder.Configuration.GetValue<string>("AIConnection:OpenAIKey");
+}).AddChatClient(builder.Configuration.GetValue<string>("AIConnection:OpenAIModel"));
 
 builder.Services.AddHttpContextAccessor();
 

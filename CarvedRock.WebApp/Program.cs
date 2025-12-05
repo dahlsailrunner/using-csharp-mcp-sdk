@@ -8,9 +8,9 @@ using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults(); 
+builder.AddServiceDefaults();
 
-var authority = builder.Configuration.GetValue<string>("Auth:Authority"); 
+var authority = builder.Configuration.GetValue<string>("Auth:Authority");
 
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 builder.Services.AddAuthentication(options =>
@@ -21,7 +21,7 @@ builder.Services.AddAuthentication(options =>
 .AddCookie("Cookies", options => options.AccessDeniedPath = "/AccessDenied")
 .AddOpenIdConnect("oidc", options =>
 {
-    options.Authority = authority; 
+    options.Authority = authority;
     options.ClientId = "interactive.confidential";
     options.ClientSecret = "secret";
     options.ResponseType = "code";
