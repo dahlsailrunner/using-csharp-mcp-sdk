@@ -8,7 +8,7 @@ var idsrv = builder.AddProject<Projects.Duende_IdentityServer_Demo>("idsrv");
 var api = builder.AddProject<Projects.CarvedRock_Api>("api")
     .WithReference(carvedrockdb)
     .WaitFor(carvedrockdb)
-    .WithEnvironment("Auth__Authority", idsrv.GetEndpoint("https"))    
+    .WithEnvironment("Auth__Authority", idsrv.GetEndpoint("https"))
     .WithHttpHealthCheck("/health");
 
 var mailpit = builder.AddMailPit("smtp");
@@ -29,7 +29,6 @@ var mcp = builder.AddProject<Projects.CarvedRock_Mcp>("mcp")
 api.WithReference(mcp);  // add reference to mcp server from API
 
 builder.AddMcpInspector("mcp-inspector")
-    .WithEnvironment("NODE_TLS_REJECT_UNAUTHORIZED", "0")
     .WithMcpServer(mcp, path: "");
 
 builder.Build().Run();

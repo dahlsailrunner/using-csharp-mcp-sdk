@@ -9,7 +9,7 @@
     <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="13.0.0" />
     <PackageVersion Include="Azure.AI.OpenAI" Version="2.5.0-beta.1" />
     <PackageVersion Include="CommunityToolkit.Aspire.Hosting.MailPit" Version="13.0.0" />
-    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.McpInspector" Version="13.0.0" />
+    <PackageVersion Include="CommunityToolkit.Aspire.Hosting.McpInspector" Version="13.0.1-beta.468" />
     <PackageVersion Include="Duende.AccessTokenManagement" Version="4.0.1" />
     <PackageVersion Include="Duende.AccessTokenManagement.OpenIdConnect" Version="4.1.0-rc.1" />
     <PackageVersion Include="Duende.IdentityModel" Version="8.0.0-rc.1" />
