@@ -1,6 +1,6 @@
 ﻿using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Validation;
-using IdentityModel;
+using Duende.IdentityModel;
 using System.Security.Claims;
 using System.Text.Json;
 
@@ -17,7 +17,7 @@ public class TokenExchangeGrantValidator : IExtensionGrantValidator
 
     public string GrantType => OidcConstants.GrantTypes.TokenExchange;
 
-    public async Task ValidateAsync(ExtensionGrantValidationContext context)
+    public async Task ValidateAsync(ExtensionGrantValidationContext context, CancellationToken ct)
     {
         context.Result = new GrantValidationResult(TokenRequestErrors.InvalidRequest);
 
@@ -46,7 +46,7 @@ public class TokenExchangeGrantValidator : IExtensionGrantValidator
         }
 
         // validate the incoming access token with the built-in token validator
-        var validationResult = await _validator.ValidateAccessTokenAsync(subjectToken);
+        var validationResult = await _validator.ValidateAccessTokenAsync(subjectToken, expectedScope: null, ct);
         if (validationResult.IsError)
         {
             return;

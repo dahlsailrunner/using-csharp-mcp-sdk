@@ -8,7 +8,7 @@ namespace Duende.IdentityServer.Demo;
 
 public class ProfileService : IProfileService
 {
-    public Task GetProfileDataAsync(ProfileDataRequestContext context)
+    public Task GetProfileDataAsync(ProfileDataRequestContext context, CancellationToken ct)
     {
         var subjectId = context.Subject.Identity.GetSubjectId();
         var subjectClaims = TestUsers.Users.FirstOrDefault(a => a.SubjectId == subjectId);
@@ -35,7 +35,7 @@ public class ProfileService : IProfileService
         return Task.CompletedTask;
     }
 
-    public Task IsActiveAsync(IsActiveContext context)
+    public Task IsActiveAsync(IsActiveContext context, CancellationToken ct)
     {
         context.IsActive = true;
         return Task.CompletedTask;

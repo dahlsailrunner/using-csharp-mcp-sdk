@@ -1,4 +1,4 @@
-﻿using IdentityModel;
+﻿using Duende.IdentityModel;
 using Duende.IdentityServer.Models;
 
 namespace Duende.IdentityServer.Demo

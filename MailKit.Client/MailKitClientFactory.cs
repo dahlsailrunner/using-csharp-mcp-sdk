@@ -37,7 +37,7 @@ public sealed class MailKitClientFactory(MailKitClientSettings settings) : IDisp
             {
                 _client = new SmtpClient();
 
-                await _client.ConnectAsync(settings.Endpoint, cancellationToken)
+                await _client.ConnectAsync(settings.Endpoint!, cancellationToken)
                              .ConfigureAwait(false);
             }
         }

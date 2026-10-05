@@ -41,8 +41,8 @@ builder.Services.AddAuthentication(options =>
         {            
             options.ResourceMetadata = new ProtectedResourceMetadata
             {
-                Resource = new Uri(mcpServerUrl),
-                AuthorizationServers = { new Uri(authServer) },
+                Resource = mcpServerUrl,
+                AuthorizationServers = { authServer },
                 ScopesSupported = ["api", "openid", "profile", "email", "offline_access"],                
             };            
         });

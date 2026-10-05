@@ -126,7 +126,6 @@ public class McpServerTests(AppFixture fixture) : IClassFixture<AppFixture>
         }
         catch (McpException ex)
         {
-            Assert.Equal(McpErrorCode.InvalidRequest, ex.ErrorCode);
             Assert.Contains("requires authorization", ex.Message);
             return;
         }

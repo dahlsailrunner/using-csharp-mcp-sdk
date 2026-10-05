@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
+    <File Path="readme.md" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CarvedRock.IntegrationTests/CarvedRock.IntegrationTests.csproj" />
+  </Folder>
+  <Project Path="CarvedRock-Aspire.AppHost/CarvedRock-Aspire.AppHost.csproj" />
+  <Project Path="CarvedRock-Aspire.ServiceDefaults/CarvedRock-Aspire.ServiceDefaults.csproj" />
+  <Project Path="CarvedRock.Api/CarvedRock.Api.csproj" />
+  <Project Path="CarvedRock.Core/CarvedRock.Core.csproj" />
+  <Project Path="CarvedRock.Data/CarvedRock.Data.csproj" />
+  <Project Path="CarvedRock.Domain/CarvedRock.Domain.csproj" />
+  <Project Path="CarvedRock.Mcp/CarvedRock.Mcp.csproj" />
+  <Project Path="CarvedRock.WebApp/CarvedRock.WebApp.csproj" />
+  <Project Path="demo.duendesoftware.com/Duende.IdentityServer.Demo.csproj" />
+  <Project Path="MailKit.Client/MailKit.Client.csproj" />
+</Solution>

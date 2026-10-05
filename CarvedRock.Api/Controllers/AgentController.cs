@@ -25,7 +25,7 @@ public class AgentController(IChatClient chatClient,
 
         var prompt = await GetPromptAsync(message, mcpClient, cxl);
 
-        var agent = chatClient.CreateAIAgent(
+        var agent = chatClient.AsAIAgent(
             instructions: prompt,
             name: "CarvedRock Assistant",
             tools: [.. tools]);

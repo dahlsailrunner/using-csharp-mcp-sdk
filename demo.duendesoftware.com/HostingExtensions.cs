@@ -82,7 +82,7 @@ internal static class HostingExtensions
                 options.Scope.Add("email");
             });
 
-        builder.Services.ConfigureDPoPTokensForScheme("dpop", options => { options.TokenMode = DPoPMode.DPoPOnly; });
+        builder.Services.ConfigureDPoPTokensForScheme("dpop");
 
         // add CORS policy for non-IdentityServer endpoints
         builder.Services.AddCors(options =>
